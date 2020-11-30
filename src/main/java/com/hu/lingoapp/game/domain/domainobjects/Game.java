@@ -2,7 +2,7 @@ package com.hu.lingoapp.game.domain.domainobjects;
 
 public class Game {
     Long id;
-    String name;
+    Player player;
 
     public Game() {}
 }
