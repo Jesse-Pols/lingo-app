@@ -1,8 +1,8 @@
-package com.hu.lingoapp.data.dao;
+package com.hu.lingoapp.game.data.dao;
 
-import com.hu.lingoapp.data.entities.GameEntity;
-import com.hu.lingoapp.data.repositories.GameRepository;
-import com.hu.lingoapp.domain.dao.GameDao;
+import com.hu.lingoapp.game.data.entities.GameEntity;
+import com.hu.lingoapp.game.data.repositories.GameRepository;
+import com.hu.lingoapp.game.domain.dao.GameDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

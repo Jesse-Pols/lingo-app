@@ -1,4 +1,4 @@
-package com.hu.lingoapp.domain.domainobjects;
+package com.hu.lingoapp.game.domain.domainobjects;
 
 public class Game {
     Long id;

@@ -1,20 +1,19 @@
-package com.hu.lingoapp.data.entities;
+package com.hu.lingoapp.game.data.entities;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "game")
+@Table(name = "games")
 public class GameEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private int player_id;
 
     public GameEntity() {}
 
-    public GameEntity(Long id, String name) {
-        this.id = id;
-        this.name = name;
+    public Long getId() {
+        return this.id;
     }
 }
