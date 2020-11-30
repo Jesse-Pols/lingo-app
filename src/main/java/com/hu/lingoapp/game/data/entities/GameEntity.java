@@ -9,6 +9,7 @@ public class GameEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // TODO: Foreign Relation ManyToOne
     private int player_id;
 
     public GameEntity() {}

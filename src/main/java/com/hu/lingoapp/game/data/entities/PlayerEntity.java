@@ -10,6 +10,7 @@ public class PlayerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // TODO: Foreign Relation
     //@OneToMany
     //private Set<GameEntity> games;
 
