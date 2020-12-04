@@ -1,7 +1,7 @@
 package com.hu.lingoapp.game.presentation.controllers;
 
 import com.hu.lingoapp.game.application.services.GameService;
-import com.hu.lingoapp.game.domain.domainobjects.Game;
+import com.hu.lingoapp.game.domain.models.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

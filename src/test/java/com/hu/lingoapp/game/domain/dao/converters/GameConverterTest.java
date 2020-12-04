@@ -1,9 +1,8 @@
 package com.hu.lingoapp.game.domain.dao.converters;
 
-import com.hu.lingoapp.game.data.entities.GameEntity;
-import com.hu.lingoapp.game.domain.domainobjects.Game;
+import com.hu.lingoapp.game.data.dtos.GameDto;
+import com.hu.lingoapp.game.domain.models.Game;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -24,29 +23,29 @@ class GameConverterTest {
 
     @ParameterizedTest
     @MethodSource("provideGameEntitiesWithDifferentData")
-    void convertEntityToModel(GameEntity entity, Game shouldResult) {
+    void convertEntityToModel(GameDto entity, Game shouldResult) {
         Game result = converter.convertEntityToModel(entity);
         assertEquals(shouldResult, result);
     }
 
     @ParameterizedTest
     @MethodSource("provideGameEntityListsWithDifferentData")
-    void convertEntitiesToModels(List<GameEntity> entities, List<Game> shouldResult) {
+    void convertEntitiesToModels(List<GameDto> entities, List<Game> shouldResult) {
         List<Game> result = converter.convertEntitiesToModels(entities);
         assertEquals(shouldResult, result);
     }
 
     @ParameterizedTest
     @MethodSource("provideGamesWithDifferentData")
-    void convertModelToEntity(Game model, GameEntity shouldResult) {
-        GameEntity result = converter.convertModelToEntity(model);
+    void convertModelToEntity(Game model, GameDto shouldResult) {
+        GameDto result = converter.convertModelToEntity(model);
         assertEquals(result, shouldResult);
     }
 
     @ParameterizedTest
     @MethodSource("provideGameListsWithDifferentData")
-    void convertModelsToEntities(List<Game> models, List<GameEntity> shouldResult) {
-        List<GameEntity> result = converter.convertModelsToEntities(models);
+    void convertModelsToEntities(List<Game> models, List<GameDto> shouldResult) {
+        List<GameDto> result = converter.convertModelsToEntities(models);
         assertEquals(result, shouldResult);
     }
 
@@ -55,20 +54,20 @@ class GameConverterTest {
 
 
         return Stream.of(
-                Arguments.of(new GameEntity(1l), new Game(1l)),
-                Arguments.of(new GameEntity(0l), new Game(0l)),
-                Arguments.of(new GameEntity(99999999999999l), new Game(99999999999999l)),
-                Arguments.of(new GameEntity(-1l), new Game(-1l)),
-                Arguments.of(new GameEntity(), new Game()),
-                Arguments.of(new GameEntity(null), new Game())
+                Arguments.of(new GameDto(1l), new Game(1l)),
+                Arguments.of(new GameDto(0l), new Game(0l)),
+                Arguments.of(new GameDto(99999999999999l), new Game(99999999999999l)),
+                Arguments.of(new GameDto(-1l), new Game(-1l)),
+                Arguments.of(new GameDto(), new Game()),
+                Arguments.of(new GameDto(null), new Game())
         );
     }
 
     static Stream<Arguments> provideGameEntityListsWithDifferentData() {
-        List<GameEntity> list1 = new ArrayList<>();
-        list1.add(new GameEntity(1l));
-        list1.add(new GameEntity(999999l));
-        list1.add(new GameEntity(0l));
+        List<GameDto> list1 = new ArrayList<>();
+        list1.add(new GameDto(1l));
+        list1.add(new GameDto(999999l));
+        list1.add(new GameDto(0l));
         List<Game> list2 = new ArrayList<>();
         list2.add(new Game(1l));
         list2.add(new Game(999999l));
@@ -82,12 +81,12 @@ class GameConverterTest {
 
     static Stream<Arguments> provideGamesWithDifferentData() {
         return Stream.of(
-                Arguments.of(new Game(1l), new GameEntity(1l)),
-                Arguments.of(new Game(0l), new GameEntity(0l)),
-                Arguments.of(new Game(99999999999999l), new GameEntity(99999999999999l)),
-                Arguments.of(new Game(-1l), new GameEntity(-1l)),
-                Arguments.of(new Game(), new GameEntity()),
-                Arguments.of(new Game(null), new GameEntity())
+                Arguments.of(new Game(1l), new GameDto(1l)),
+                Arguments.of(new Game(0l), new GameDto(0l)),
+                Arguments.of(new Game(99999999999999l), new GameDto(99999999999999l)),
+                Arguments.of(new Game(-1l), new GameDto(-1l)),
+                Arguments.of(new Game(), new GameDto()),
+                Arguments.of(new Game(null), new GameDto())
 
         );
     }
@@ -97,10 +96,10 @@ class GameConverterTest {
         list1.add(new Game(1l));
         list1.add(new Game(999999l));
         list1.add(new Game(0l));
-        List<GameEntity> list2 = new ArrayList<>();
-        list2.add(new GameEntity(1l));
-        list2.add(new GameEntity(999999l));
-        list2.add(new GameEntity(0l));
+        List<GameDto> list2 = new ArrayList<>();
+        list2.add(new GameDto(1l));
+        list2.add(new GameDto(999999l));
+        list2.add(new GameDto(0l));
 
         return Stream.of(
                 Arguments.of(new ArrayList<>(), new ArrayList<>()),

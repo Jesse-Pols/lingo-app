@@ -1,4 +1,4 @@
-package com.hu.lingoapp.game.data.entities;
+package com.hu.lingoapp.game.data.dtos;
 
 import lombok.Data;
 
@@ -8,16 +8,13 @@ import java.util.List;
 @Entity
 @Table(name = "players")
 public @Data
-class PlayerEntity {
+class PlayerDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy="player")
-    private List<GameEntity> games;
-
     private String name;
     private int score;
 
-    public PlayerEntity() {}
+    public PlayerDto() {}
 }

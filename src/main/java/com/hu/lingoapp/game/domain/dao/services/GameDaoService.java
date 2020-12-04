@@ -1,10 +1,10 @@
 package com.hu.lingoapp.game.domain.dao.services;
 
-import com.hu.lingoapp.game.data.entities.GameEntity;
+import com.hu.lingoapp.game.data.dtos.GameDto;
 import com.hu.lingoapp.game.data.services.GameData;
 import com.hu.lingoapp.game.domain.dao.GameDao;
 import com.hu.lingoapp.game.domain.dao.converters.GameConverter;
-import com.hu.lingoapp.game.domain.domainobjects.Game;
+import com.hu.lingoapp.game.domain.models.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class GameDaoService implements GameDao {
     GameConverter converter;
 
     public List<Game> findAll() {
-        List<GameEntity> gameEntities = data.findAll();
+        List<GameDto> gameEntities = data.findAll();
         return converter.convertEntitiesToModels(gameEntities);
     }
 }

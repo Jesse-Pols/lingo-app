@@ -1,9 +1,9 @@
 package com.hu.lingoapp.game.domain.dao.converters;
 
-import com.hu.lingoapp.game.data.entities.GameEntity;
-import com.hu.lingoapp.game.data.entities.PlayerEntity;
-import com.hu.lingoapp.game.domain.domainobjects.Game;
-import com.hu.lingoapp.game.domain.domainobjects.Player;
+import com.hu.lingoapp.game.data.dtos.GameDto;
+import com.hu.lingoapp.game.data.dtos.PlayerDto;
+import com.hu.lingoapp.game.domain.models.Game;
+import com.hu.lingoapp.game.domain.models.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,43 +15,37 @@ public class PlayerConverter {
     @Autowired
     GameConverter gameConverter;
 
-    public Player convertEntityToModel(PlayerEntity entity) {
+    public Player convertEntityToModel(PlayerDto entity) {
         Player model = new Player();
         model.setId(entity.getId());
         model.setName(entity.getName());
         model.setScore(entity.getScore());
 
-        List<Game> gameModels = gameConverter.convertEntitiesToModels(entity.getGames());
-        model.setGames(gameModels);
-
         return model;
     }
 
-    public List<Player> convertEntitiesToModels(List<PlayerEntity> entities) {
+    public List<Player> convertEntitiesToModels(List<PlayerDto> entities) {
         List<Player> models = new ArrayList<>();
-        for (PlayerEntity entity : entities) {
+        for (PlayerDto entity : entities) {
             Player model = this.convertEntityToModel(entity);
             models.add(model);
         }
         return models;
     }
 
-    public PlayerEntity convertModelToEntity(Player model) {
-        PlayerEntity entity = new PlayerEntity();
+    public PlayerDto convertModelToEntity(Player model) {
+        PlayerDto entity = new PlayerDto();
         entity.setId(model.getId());
         entity.setName(model.getName());
         entity.setScore(model.getScore());
 
-        List<GameEntity> gameEntities = gameConverter.convertModelsToEntities(model.getGames());
-        entity.setGames(gameEntities);
-
         return entity;
     }
 
-    public List<PlayerEntity> convertModelsToEntities(List<Player> models) {
-        List<PlayerEntity> entities = new ArrayList<>();
+    public List<PlayerDto> convertModelsToEntities(List<Player> models) {
+        List<PlayerDto> entities = new ArrayList<>();
         for (Player model : models) {
-            PlayerEntity entity = this.convertModelToEntity(model);
+            PlayerDto entity = this.convertModelToEntity(model);
             entities.add(entity);
         }
         return entities;

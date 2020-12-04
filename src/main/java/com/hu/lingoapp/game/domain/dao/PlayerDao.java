@@ -1,6 +1,6 @@
 package com.hu.lingoapp.game.domain.dao;
 
-import com.hu.lingoapp.game.domain.domainobjects.Player;
+import com.hu.lingoapp.game.domain.models.Player;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
-package com.hu.lingoapp.game.domain.domainobjects;
+package com.hu.lingoapp.game.domain.models;
 
 import lombok.Data;
 
 public @Data class Game {
     private Long id;
-    private Player player;
+    private int player_id;
 
     public Game() {}
 
@@ -12,8 +12,8 @@ public @Data class Game {
         this.id = id;
     }
 
-    public Game(Long id, Player player) {
+    public Game(Long id, int player_id) {
         this.id = id;
-        this.player = player;
+        this.player_id = player_id;
     }
 }
