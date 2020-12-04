@@ -1,10 +1,9 @@
 package com.hu.lingoapp.game.domain.dao;
 
-import com.hu.lingoapp.game.data.entities.GameEntity;
-import com.hu.lingoapp.game.data.entities.PlayerEntity;
+import com.hu.lingoapp.game.domain.domainobjects.Player;
 
 import java.util.List;
 
 public interface PlayerDao {
-    List<PlayerEntity> findAll();
+    List<Player> findAll();
 }

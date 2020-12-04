@@ -1,10 +1,13 @@
 package com.hu.lingoapp.game.data.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "games")
-public class GameEntity {
+public @Data
+class GameEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,7 +17,7 @@ public class GameEntity {
 
     public GameEntity() {}
 
-    public Long getId() {
-        return this.id;
+    public GameEntity(Long id) {
+        this.id = id;
     }
 }
