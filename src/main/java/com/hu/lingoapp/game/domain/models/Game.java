@@ -4,7 +4,7 @@ import lombok.Data;
 
 public @Data class Game {
     private Long id;
-    private int player_id;
+    private Player player;
 
     public Game() {}
 
@@ -12,8 +12,8 @@ public @Data class Game {
         this.id = id;
     }
 
-    public Game(Long id, int player_id) {
+    public Game(Long id, Player player) {
         this.id = id;
-        this.player_id = player_id;
+        this.player = player;
     }
 }

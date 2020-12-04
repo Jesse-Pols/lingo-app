@@ -13,7 +13,7 @@ class GameDto {
     private Long id;
 
     @Column(name="player_id")
-    private int player_id;
+    private Long player_id;
 
     public GameDto() {}
 

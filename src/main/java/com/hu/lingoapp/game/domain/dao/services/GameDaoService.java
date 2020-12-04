@@ -19,7 +19,7 @@ public class GameDaoService implements GameDao {
     GameConverter converter;
 
     public List<Game> findAll() {
-        List<GameDto> gameEntities = data.findAll();
-        return converter.convertEntitiesToModels(gameEntities);
+        List<GameDto> gameDtos = data.findAll();
+        return converter.convertEntitiesToModels(gameDtos);
     }
 }
