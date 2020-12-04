@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class GameDataService implements GameData {
+
     @Autowired
     private GameRepository repository;
 

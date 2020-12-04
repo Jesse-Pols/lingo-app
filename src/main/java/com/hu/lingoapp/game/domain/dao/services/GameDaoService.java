@@ -14,11 +14,12 @@ import java.util.List;
 public class GameDaoService implements GameDao {
     @Autowired
     GameData data;
+
+    @Autowired
     GameConverter converter;
 
     public List<Game> findAll() {
         List<GameEntity> gameEntities = data.findAll();
-        List<Game> gameModels = converter.convertEntitiesToModels(gameEntities);
-        return gameModels;
+        return converter.convertEntitiesToModels(gameEntities);
     }
 }
