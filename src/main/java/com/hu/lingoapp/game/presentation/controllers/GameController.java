@@ -1,7 +1,6 @@
 package com.hu.lingoapp.game.presentation.controllers;
 
 import com.hu.lingoapp.game.application.services.GameService;
-import com.hu.lingoapp.game.data.entities.GameEntity;
 import com.hu.lingoapp.game.domain.domainobjects.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +22,8 @@ public class GameController {
 
     @PostMapping("/new")
     @ResponseBody
-    public GameEntity newGame() {
-        return null;
+    public Game newGame() {
+        return gameService.newGame();
     }
 
 }

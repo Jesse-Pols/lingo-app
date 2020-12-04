@@ -12,8 +12,9 @@ class GameEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // TODO: Foreign Relation ManyToOne
-    private int player_id;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="player_id")
+    private PlayerEntity player;
 
     public GameEntity() {}
 
