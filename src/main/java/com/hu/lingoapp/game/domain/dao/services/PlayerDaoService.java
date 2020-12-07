@@ -2,7 +2,6 @@ package com.hu.lingoapp.game.domain.dao.services;
 
 import com.hu.lingoapp.game.data.dtos.PlayerDto;
 import com.hu.lingoapp.game.data.services.PlayerData;
-import com.hu.lingoapp.game.data.services.implementations.PlayerDataService;
 import com.hu.lingoapp.game.domain.dao.PlayerDao;
 import com.hu.lingoapp.game.domain.dao.converters.PlayerConverter;
 import com.hu.lingoapp.game.domain.models.Player;
@@ -31,5 +30,12 @@ public class PlayerDaoService implements PlayerDao {
     public Player findById(Long id) {
         Optional<PlayerDto> player = data.findById(id);
         return converter.convertEntityToModel(player.get());
+    }
+
+    @Override
+    public Player save(Player player) {
+        PlayerDto playerDto = converter.convertModelToEntity(player);
+        PlayerDto returningPlayer = data.save(playerDto);
+        return converter.convertEntityToModel(returningPlayer);
     }
 }

@@ -7,4 +7,5 @@ import java.util.List;
 public interface PlayerDao {
     List<Player> findAll();
     Player findById(Long id);
+    Player save(Player player);
 }

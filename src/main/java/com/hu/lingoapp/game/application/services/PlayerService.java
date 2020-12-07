@@ -16,4 +16,8 @@ public class PlayerService {
     public List<Player> getAllPlayers() {
         return dao.findAll();
     }
+
+    public Player save(Player player) {
+        return dao.save(player);
+    }
 }
