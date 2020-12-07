@@ -20,7 +20,7 @@ public class PlayerDataService implements PlayerData {
     }
 
     @Override
-    public Optional<PlayerDto> findById(Long id) {
+    public Optional<PlayerDto> findById(long id) {
         return repository.findById(id);
     }
 

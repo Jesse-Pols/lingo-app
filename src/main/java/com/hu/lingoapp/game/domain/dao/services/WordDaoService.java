@@ -8,6 +8,8 @@ import com.hu.lingoapp.game.domain.models.Word;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class WordDaoService implements WordDao {
 
@@ -22,6 +24,17 @@ public class WordDaoService implements WordDao {
         WordDto wordDto = converter.convertModelToEntity(word);
         WordDto returningWord = data.save(wordDto);
         return converter.convertEntityToModel(returningWord);
+    }
+
+    @Override
+    public long count() {
+        return data.count();
+    }
+
+    @Override
+    public Word findById(Long id) {
+        Optional<WordDto> word = data.findById(id);
+        return converter.convertEntityToModel(word.get());
     }
 
 }

@@ -3,16 +3,16 @@ package com.hu.lingoapp.game.domain.models;
 import lombok.Data;
 
 public @Data class Game {
-    private Long id;
+    private long id;
     private Player player;
 
     public Game() {}
 
-    public Game(Long id) {
+    public Game(long id) {
         this.id = id;
     }
 
-    public Game(Long id, Player player) {
+    public Game(long id, Player player) {
         this.id = id;
         this.player = player;
     }

@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface PlayerData {
     List<PlayerDto> findAll();
-    Optional<PlayerDto> findById(Long id);
+    Optional<PlayerDto> findById(long id);
     PlayerDto save(PlayerDto player);
 }

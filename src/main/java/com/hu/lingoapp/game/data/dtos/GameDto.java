@@ -10,18 +10,18 @@ public @Data
 class GameDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name="player_id")
-    private Long player_id;
+    private long player_id;
 
     public GameDto() {}
 
-    public GameDto(Long id) {
+    public GameDto(long id) {
         this.id = id;
     }
 
-    public GameDto(Long id, Long player_id) {
+    public GameDto(long id, long player_id) {
         this.id = id;
         this.player_id = player_id;
     }
