@@ -1,10 +1,7 @@
 package com.hu.lingoapp.game.domain.dao.converters;
 
-import com.hu.lingoapp.game.data.dtos.GameDto;
 import com.hu.lingoapp.game.data.dtos.PlayerDto;
-import com.hu.lingoapp.game.domain.models.Game;
 import com.hu.lingoapp.game.domain.models.Player;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,16 +9,12 @@ import java.util.List;
 
 @Service
 public class PlayerConverter {
-    @Autowired
-    GameConverter gameConverter;
 
     public Player convertEntityToModel(PlayerDto entity) {
         Player model = new Player();
         model.setId(entity.getId());
         model.setName(entity.getName());
         model.setScore(entity.getScore());
-
-
 
         return model;
     }

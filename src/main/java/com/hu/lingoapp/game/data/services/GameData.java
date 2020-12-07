@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface GameData {
     List<GameDto> findAll();
+    GameDto save(GameDto game);
 }

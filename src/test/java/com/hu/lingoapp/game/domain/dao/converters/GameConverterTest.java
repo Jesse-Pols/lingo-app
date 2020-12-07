@@ -1,7 +1,10 @@
 package com.hu.lingoapp.game.domain.dao.converters;
 
 import com.hu.lingoapp.game.data.dtos.GameDto;
+import com.hu.lingoapp.game.data.dtos.PlayerDto;
+import com.hu.lingoapp.game.domain.dao.services.PlayerDaoService;
 import com.hu.lingoapp.game.domain.models.Game;
+import com.hu.lingoapp.game.domain.models.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -12,6 +15,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class GameConverterTest {
     private GameConverter converter;
@@ -24,6 +28,11 @@ class GameConverterTest {
     @ParameterizedTest
     @MethodSource("provideGameEntitiesWithDifferentData")
     void convertEntityToModel(GameDto entity, Game shouldResult) {
+
+        PlayerDaoService mockPlayerDaoService = mock(PlayerDaoService.class);
+        when(mockPlayerDaoService.findById(entity.getPlayer_id()))
+            .thenReturn(shouldResult.getPlayer());
+
         Game result = converter.convertEntityToModel(entity);
         assertEquals(shouldResult, result);
     }
@@ -51,11 +60,9 @@ class GameConverterTest {
 
     static Stream<Arguments> provideGameEntitiesWithDifferentData() {
 
-
-
         return Stream.of(
                 Arguments.of(new GameDto(1l), new Game(1l)),
-                Arguments.of(new GameDto(0l), new Game(0l)),
+                Arguments.of(new GameDto(0l, 0l), new Game(0l, new Player(0l, "Henk", 0))),
                 Arguments.of(new GameDto(99999999999999l), new Game(99999999999999l)),
                 Arguments.of(new GameDto(-1l), new Game(-1l)),
                 Arguments.of(new GameDto(), new Game()),

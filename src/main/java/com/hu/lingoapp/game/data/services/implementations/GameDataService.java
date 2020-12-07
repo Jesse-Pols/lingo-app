@@ -16,7 +16,11 @@ public class GameDataService implements GameData {
 
     @Override
     public List<GameDto> findAll() {
-        List<GameDto> games = (List<GameDto>) repository.findAll();
-        return games;
+        return (List<GameDto>) repository.findAll();
+    }
+
+    @Override
+    public GameDto save(GameDto game) {
+        return repository.save(game);
     }
 }

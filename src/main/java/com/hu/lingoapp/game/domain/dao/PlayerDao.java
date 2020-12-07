@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface PlayerDao {
     List<Player> findAll();
+    Player findById(Long id);
 }

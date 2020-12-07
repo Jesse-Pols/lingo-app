@@ -20,4 +20,9 @@ class GameDto {
     public GameDto(Long id) {
         this.id = id;
     }
+
+    public GameDto(Long id, Long player_id) {
+        this.id = id;
+        this.player_id = player_id;
+    }
 }

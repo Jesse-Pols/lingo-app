@@ -20,7 +20,7 @@ public class GameController {
         return gameService.getAllGames();
     }
 
-    @PostMapping("/new")
+    @GetMapping("/new")
     @ResponseBody
     public Game newGame() {
         return gameService.newGame();
