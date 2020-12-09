@@ -13,6 +13,8 @@ public class PlayerService {
     @Autowired
     private PlayerDao dao;
 
+    private Player player;
+
     public List<Player> getAllPlayers() {
         return dao.findAll();
     }
@@ -20,4 +22,5 @@ public class PlayerService {
     public Player save(Player player) {
         return dao.save(player);
     }
+
 }

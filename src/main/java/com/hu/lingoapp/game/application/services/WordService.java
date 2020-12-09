@@ -19,13 +19,14 @@ public class WordService {
     @Autowired
     private WordDao dao;
 
-    //TODO to applcation.config
-    private String basePath = "wordlists/";
+    private int wordCount = 0;
 
     public List<String> readFromTxtFile(String fileName) throws FileNotFoundException {
         // TODO: Decide wether or not to move this to another layer (Data layer?)
         List<String> words = new ArrayList<>();
 
+        //TODO to applcation.config
+        String basePath = "wordlists/";
         File file = ResourceUtils.getFile("classpath:" + basePath + fileName);
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
@@ -78,6 +79,10 @@ public class WordService {
         }
 
         long randomId = new Random().nextInt(Math.toIntExact(amountOfWords + 1));
-        return dao.findById(randomId);
+        Word word = dao.findById(randomId);
+
+        wordCount += word.getText().length();
+
+        return word;
     }
 }

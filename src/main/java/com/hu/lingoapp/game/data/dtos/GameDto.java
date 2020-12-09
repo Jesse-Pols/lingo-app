@@ -15,6 +15,9 @@ class GameDto {
     @Column(name="player_id")
     private long player_id;
 
+    @Column(name="answer_id")
+    private long answer_id;
+
     public GameDto() {}
 
     public GameDto(long id) {

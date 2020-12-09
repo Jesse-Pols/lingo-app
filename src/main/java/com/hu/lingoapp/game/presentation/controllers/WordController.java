@@ -23,4 +23,8 @@ public class WordController {
     public boolean saveFile(@RequestParam String path) {
         return wordService.saveFromTxtFile(path);
     }
+
+    @GetMapping("/get/random")
+    @ResponseBody
+    public Word getRandomWords() { return wordService.chooseRandomWord(); }
 }

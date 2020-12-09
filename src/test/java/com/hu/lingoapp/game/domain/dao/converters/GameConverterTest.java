@@ -65,8 +65,7 @@ class GameConverterTest {
                 Arguments.of(new GameDto(0l, 0l), new Game(0l, new Player(0l, "Henk", 0))),
                 Arguments.of(new GameDto(99999999999999l), new Game(99999999999999l)),
                 Arguments.of(new GameDto(-1l), new Game(-1l)),
-                Arguments.of(new GameDto(), new Game()),
-                Arguments.of(new GameDto(null), new Game())
+                Arguments.of(new GameDto(), new Game())
         );
     }
 

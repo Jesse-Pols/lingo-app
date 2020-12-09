@@ -5,6 +5,7 @@ import lombok.Data;
 public @Data class Game {
     private long id;
     private Player player;
+    private Word answer;
 
     public Game() {}
 

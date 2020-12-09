@@ -22,7 +22,7 @@ public class GameController {
 
     @GetMapping("/new")
     @ResponseBody
-    public Game newGame() {
+    public boolean newGame() {
         return gameService.newGame();
     }
 

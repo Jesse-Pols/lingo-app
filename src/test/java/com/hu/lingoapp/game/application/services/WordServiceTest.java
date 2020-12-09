@@ -1,36 +1,43 @@
 package com.hu.lingoapp.game.application.services;
 
+import com.hu.lingoapp.game.domain.dao.WordDao;
+import com.hu.lingoapp.game.domain.models.Word;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+import javax.annotation.Resource;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class WordServiceTest {
+
+    @Mock
+    private WordDao dao;
+
+    @InjectMocks
+    @Resource
     private WordService service;
 
     @BeforeEach
     void beforeEach() {
         service = new WordService();
+
+        //TODO find other solution
+        MockitoAnnotations.initMocks(this);
+
+        when(dao.count()).thenReturn(1000l);
     }
 
-    @ParameterizedTest
-    @MethodSource("provideFileNamesWithDifferentPaths")
-    void readFromTxtFile(String fileName, List<String> shouldResult) throws FileNotFoundException {
-        List<String> result = service.readFromTxtFile(fileName);
-        assertEquals(shouldResult.getClass(), result.getClass());
-    }
+    @Test
+    void chooseRandomWord() {
+        Word word;
 
-    static Stream<Arguments> provideFileNamesWithDifferentPaths() {
-        return Stream.of(
-            Arguments.of("basiswoorden-gekeurd", new ArrayList<String>())
-        );
+        word = service.chooseRandomWord();
+
+        assertNotNull(word);
     }
 }

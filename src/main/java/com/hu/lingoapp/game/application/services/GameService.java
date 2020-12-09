@@ -21,20 +21,36 @@ public class GameService {
     @Autowired
     private WordService wordService;
 
+    private Game game;
+
     public List<Game> getAllGames() {
         return gameDao.findAll();
     }
 
-    public Game newGame() {
-        // Every new game gets a new player
-        Game game = new Game();
-        Player player = new Player();
+    public boolean newGame() {
+        game = new Game();
 
-        player = playerService.save(player);
-        game.setPlayer(player);
+        Player player = playerService.save(new Player());
+        if (player != null) { game.setPlayer(player); }
 
         Word answer = wordService.chooseRandomWord();
+        if (answer != null) { game.setAnswer(answer); }
 
-        return gameDao.save(game);
+        game = gameDao.save(game);
+        return true;
+    }
+
+    public Game getCurrentGame() {
+        return this.game;
+    }
+
+    public String getCurrentGameAnswer() {
+        if (game == null) return null;
+        Word answerObj = game.getAnswer();
+
+        if (answerObj == null) return null;
+        String answer = answerObj.getText();
+
+        return answer;
     }
 }
