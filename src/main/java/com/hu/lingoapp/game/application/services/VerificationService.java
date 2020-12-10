@@ -16,9 +16,8 @@ public class VerificationService {
     }
 
     public boolean verifyTimer() {
+        // TODO
         return true;
     }
-
-    
 
 }

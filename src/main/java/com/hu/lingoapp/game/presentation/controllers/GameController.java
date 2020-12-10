@@ -20,7 +20,13 @@ public class GameController {
         return gameService.getAllGames();
     }
 
-    @GetMapping("/new")
+    @GetMapping("/get/current")
+    @ResponseBody
+    public Game getCurrentGame() {
+        return gameService.getCurrentGame();
+    }
+
+    @PostMapping("/new")
     @ResponseBody
     public boolean newGame() {
         return gameService.newGame();

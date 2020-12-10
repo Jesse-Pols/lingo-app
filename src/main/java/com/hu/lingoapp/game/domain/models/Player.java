@@ -11,6 +11,10 @@ public @Data class Player {
 
     public Player() {}
 
+    public Player(long id) {
+        this.id = id;
+    }
+
     public Player(long id, String name, int score) {
         this.id = id;
         this.name = name;

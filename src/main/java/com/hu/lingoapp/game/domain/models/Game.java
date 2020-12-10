@@ -17,4 +17,10 @@ public @Data class Game {
         this.id = id;
         this.player = player;
     }
+
+    public Game(long id, Player player, Word answer) {
+        this.id = id;
+        this.player = player;
+        this.answer = answer;
+    }
 }

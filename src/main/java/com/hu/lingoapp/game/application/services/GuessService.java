@@ -33,16 +33,39 @@ public class GuessService {
         // Check for every letter if the letter is present in the word
 
         for (int i = 0; i < word.length(); i++) {
-            char wordChar = word.charAt(i);
-            Letter letter = new Letter(i, wordChar, false, false);
-
-            if (answer.indexOf(wordChar) != 0) { letter.setPresent(true); }
-            if (i == answer.indexOf(wordChar)) { letter.setCorrect(true); }
-
+            System.out.println(word.charAt(i));
+            Letter letter = this.checkLetter(word, answer, i);
             letters.add(letter);
         }
 
         return letters;
+    }
+
+    public Letter checkLetter(String word, String answer, int i) {
+        if (word == null || answer == null || i < 0) return null;
+        Letter letter = new Letter(i, null, false, false);
+
+        char w;
+        try {
+            w = word.charAt(i);
+            letter.setLetter(String.valueOf(w));
+        } catch (StringIndexOutOfBoundsException e) {
+            e.printStackTrace();
+            return letter;
+        }
+
+        if (answer.contains(letter.getLetter())) { letter.setPresent(true); }
+        else { return letter; }
+
+        char a;
+        try {
+            a = answer.charAt(i);
+            if (a == w) { letter.setCorrect(true); }
+        } catch (StringIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+        return letter;
     }
 
 }
