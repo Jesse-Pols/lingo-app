@@ -2,10 +2,16 @@ package com.hu.lingoapp.game.domain.models;
 
 import lombok.Data;
 
+import java.time.LocalTime;
+
 public @Data class Game {
     private long id;
     private Player player;
     private Word answer;
+
+    private LocalTime timeStarted;
+    private LocalTime timeEnded;
+    private LocalTime timeLastGuess;
 
     public Game() {}
 

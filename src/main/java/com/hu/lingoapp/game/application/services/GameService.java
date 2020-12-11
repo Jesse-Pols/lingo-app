@@ -53,4 +53,12 @@ public class GameService {
 
         return answer;
     }
+
+    public boolean win() {
+        // set player score
+        // set end time
+        // set game to won (?)
+        System.out.println("You Won!");
+        return true;
+    }
 }

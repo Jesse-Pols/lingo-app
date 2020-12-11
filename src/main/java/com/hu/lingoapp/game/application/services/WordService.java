@@ -72,7 +72,18 @@ public class WordService {
 
     // Use the amount of words to choose a random wordId, then get that word from the db
     public Word chooseRandomWord() {
-        long amountOfWords = dao.count();
+        List<Word> words = dao.getValidWords();
+        Random random = new Random();
+        return words.get(random.nextInt(words.size()));
+/*
+        for (Word word : words) {
+
+        }
+
+
+
+
+        long amountOfWords = dao.countValidWords();
         if (amountOfWords == 0) {
             System.out.println("No words were found. Try added words to the database.");
             return null;
@@ -84,5 +95,7 @@ public class WordService {
         wordCount += word.getText().length();
 
         return word;
+
+ */
     }
 }

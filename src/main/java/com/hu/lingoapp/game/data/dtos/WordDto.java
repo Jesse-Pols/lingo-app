@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(name = "WordDto.countValidWords", query = "SELECT COUNT(*) FROM WordDto WHERE length(text) BETWEEN 5 AND 7")
+@NamedQuery(name = "WordDto.getValidWords", query = "SELECT w FROM WordDto w WHERE length(text) BETWEEN 5 AND 7")
 @Table(name = "words")
 public @Data
 class WordDto {

@@ -24,6 +24,10 @@ public class GuessService {
         String answer = gameService.getCurrentGameAnswer();
         if (answer == null) return null;
 
+        if (word.equals(answer)) {
+            gameService.win();
+        }
+
         if (!this.verificationService.verify(word)) { return null; }
         return this.checkLetters(word, answer);
     }
@@ -33,7 +37,6 @@ public class GuessService {
         // Check for every letter if the letter is present in the word
 
         for (int i = 0; i < word.length(); i++) {
-            System.out.println(word.charAt(i));
             Letter letter = this.checkLetter(word, answer, i);
             letters.add(letter);
         }
