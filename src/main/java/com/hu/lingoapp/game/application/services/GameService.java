@@ -7,6 +7,8 @@ import com.hu.lingoapp.game.domain.models.Word;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -36,12 +38,32 @@ public class GameService {
         Word answer = wordService.chooseRandomWord();
         if (answer != null) { game.setAnswer(answer); }
 
+        game.setTimeStarted(LocalDateTime.now());
+        game.setTimeLastGuess(LocalDateTime.now());
+
         game = gameDao.save(game);
         return true;
     }
 
     public Game getCurrentGame() {
         return this.game;
+    }
+
+    public LocalDateTime getTimeOfLastGuess() {
+        if (game == null) return null;
+        return game.getTimeLastGuess();
+    }
+
+    public LocalDateTime getStartTime() {
+        if (game == null) return null;
+        return game.getTimeStarted();
+    }
+
+    public boolean setTimeOfLastGuess(LocalDateTime time) {
+        if (game == null) return false;
+        game.setTimeLastGuess(time);
+        gameDao.save(game);
+        return true;
     }
 
     public String getCurrentGameAnswer() {
@@ -59,6 +81,9 @@ public class GameService {
         // set end time
         // set game to won (?)
         System.out.println("You Won!");
+
+        game.setTimeEnded(LocalDateTime.now());
+
         return true;
     }
 }

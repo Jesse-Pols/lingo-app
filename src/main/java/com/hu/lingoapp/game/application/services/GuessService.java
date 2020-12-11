@@ -1,5 +1,6 @@
 package com.hu.lingoapp.game.application.services;
 
+import com.hu.lingoapp.game.domain.models.Game;
 import com.hu.lingoapp.game.domain.models.Letter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,17 +19,14 @@ public class GuessService {
 
     public List<Letter> guess(String word) {
         // Verify the word
-        // Check if the letters are present
-        // Check if the letters are in the right place
+        // Check every letter in the word and the answer
+
+        if (!this.verificationService.verify(word)) { return null; }
 
         String answer = gameService.getCurrentGameAnswer();
         if (answer == null) return null;
 
-        if (word.equals(answer)) {
-            gameService.win();
-        }
-
-        if (!this.verificationService.verify(word)) { return null; }
+        if (word.equals(answer)) { gameService.win(); }
         return this.checkLetters(word, answer);
     }
 

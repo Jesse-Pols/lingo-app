@@ -3,6 +3,8 @@ package com.hu.lingoapp.game.data.dtos;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "games")
@@ -12,11 +14,11 @@ class GameDto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="player_id")
     private long player_id;
-
-    @Column(name="answer_id")
     private long answer_id;
+    private Timestamp start_time;
+    private Timestamp end_time;
+    private Timestamp last_guess;
 
     public GameDto() {}
 

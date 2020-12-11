@@ -9,6 +9,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @SpringBootApplication
 public class LingoAppApplication {
+
+	@RequestMapping("/")
+	@ResponseBody
+	String check() {
+		return "The server is running.";
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(LingoAppApplication.class, args);
 	}

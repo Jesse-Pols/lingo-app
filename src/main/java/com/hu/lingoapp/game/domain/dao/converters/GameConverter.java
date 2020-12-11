@@ -9,6 +9,9 @@ import com.hu.lingoapp.game.domain.models.Word;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +27,22 @@ public class GameConverter {
     public Game convertEntityToModel(GameDto entity) {
         Game model = new Game();
         model.setId(entity.getId());
+
+        Timestamp start_timestamp = entity.getStart_time();
+        Timestamp stop_timestamp = entity.getEnd_time();
+        Timestamp guess_timestamp = entity.getLast_guess();
+
+        if (start_timestamp != null) {
+            model.setTimeStarted(start_timestamp.toLocalDateTime());
+        }
+
+        if (stop_timestamp != null) {
+            model.setTimeEnded(stop_timestamp.toLocalDateTime());
+        }
+
+        if (guess_timestamp != null) {
+            model.setTimeLastGuess(guess_timestamp.toLocalDateTime());
+        }
 
         try {
             Long id = entity.getPlayer_id();
@@ -58,6 +77,22 @@ public class GameConverter {
     public GameDto convertModelToEntity(Game model) {
         GameDto entity = new GameDto();
         entity.setId(model.getId());
+
+        LocalDateTime start_time = model.getTimeStarted();
+        LocalDateTime end_time = model.getTimeEnded();
+        LocalDateTime guess_time = model.getTimeLastGuess();
+
+        if (start_time != null) {
+            entity.setStart_time(Timestamp.valueOf(start_time));
+        }
+
+        if (end_time != null) {
+            entity.setEnd_time(Timestamp.valueOf(end_time));
+        }
+
+        if (guess_time != null) {
+            entity.setLast_guess(Timestamp.valueOf(guess_time));
+        }
 
         try {
             entity.setPlayer_id(model.getPlayer().getId());
