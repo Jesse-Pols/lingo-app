@@ -15,7 +15,6 @@ class WordDto {
     private long id;
 
     private String text;
-    private String language;
 
     public WordDto() {}
 }
