@@ -12,7 +12,6 @@ public class WordConverter {
     public Word convertEntityToModel(WordDto entity) {
         Word model = new Word();
         model.setId(entity.getId());
-        model.setLanguage(entity.getLanguage());
         model.setText(entity.getText());
 
         return model;
@@ -30,7 +29,6 @@ public class WordConverter {
     public WordDto convertModelToEntity(Word model) {
         WordDto entity = new WordDto();
         entity.setId(model.getId());
-        entity.setLanguage(model.getLanguage());
         entity.setText(model.getText());
 
         return entity;
