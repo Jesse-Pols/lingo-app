@@ -4,7 +4,6 @@ import com.hu.lingoapp.game.domain.dao.GameDao;
 import com.hu.lingoapp.game.domain.models.Game;
 import com.hu.lingoapp.game.domain.models.Player;
 import com.hu.lingoapp.game.domain.models.Word;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -27,16 +26,11 @@ class GameServiceTest {
 
     @InjectMocks
     @Resource
-    private GameService service;
-
-    @BeforeEach
-    void beforeEach() {
-        service = new GameService();
-    }
+    private GameService service = new GameService();
 
     @Test
-    void check_that_no_game_exists_yet() {
-        Game game = service.getCurrentGame();
+    void check_that_no_game_exists() {
+        Game game = service.game;
         assertNull(game);
     }
 
@@ -54,6 +48,20 @@ class GameServiceTest {
         when(gameDao.save(game)).thenReturn(game);
 
         boolean accepts = service.newGame();
+        assertTrue(accepts);
+    }
+
+    @Test
+    void check_that_game_exists() {
+        Game game = service.game;
+        assertNotNull(game);
+    }
+
+    @Test
+    void win_a_game() {
+        //when(g)
+
+        boolean accepts = service.win();
         assertTrue(accepts);
     }
 

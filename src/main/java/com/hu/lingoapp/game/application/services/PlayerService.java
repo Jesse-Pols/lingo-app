@@ -13,8 +13,6 @@ public class PlayerService {
     @Autowired
     private PlayerDao dao;
 
-    private Player player;
-
     public List<Player> getAllPlayers() {
         return dao.findAll();
     }

@@ -2,16 +2,12 @@ package com.hu.lingoapp.game.application.services;
 
 import com.hu.lingoapp.game.domain.dao.WordDao;
 import com.hu.lingoapp.game.domain.models.Word;
+import com.hu.lingoapp.game.domain.reader.Reader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 @Service
 public class WordService {
@@ -19,22 +15,11 @@ public class WordService {
     @Autowired
     private WordDao dao;
 
-    private int wordCount = 0;
+    @Autowired
+    private Reader reader;
 
-    public List<String> readFromTxtFile(String fileName) throws FileNotFoundException {
-        // TODO: Decide wether or not to move this to another layer (Data layer?)
-        List<String> words = new ArrayList<>();
-
-        //TODO to applcation.config
-        String basePath = "wordlists/";
-        File file = ResourceUtils.getFile("classpath:" + basePath + fileName);
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNext()) {
-            words.add(scanner.next());
-        }
-        scanner.close();
-
-        return words;
+    public List<String> readFromTxtFile(String fileName) {
+        return reader.readWordsFromTxtFile(fileName);
     }
 
     public boolean save(Word word) {
@@ -49,7 +34,15 @@ public class WordService {
     }
 
     public boolean saveStringList(List<String> words) {
+        if (words == null) { return false; }
+        if (words.contains(null)) { return false; }
+
         for (String string : words) {
+            if (string.equals("")) {
+                System.err.println("Skipped empty words");
+                continue;
+            }
+
             boolean success = this.save(new Word(string));
             if (!success) {
                 System.err.println("FAILED TO SAVE: " + string);
@@ -60,14 +53,9 @@ public class WordService {
 
     // Save words from txt file to DB
     public boolean saveFromTxtFile(String fileName) {
-        List<String> words;
-        try {
-            words = this.readFromTxtFile(fileName);
-            return this.saveStringList(words);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return false;
+        if (fileName == null) return false;
+        List<String> words = this.readFromTxtFile(fileName);
+        return this.saveStringList(words);
     }
 
     // Use the amount of words to choose a random wordId, then get that word from the db
@@ -75,27 +63,5 @@ public class WordService {
         List<Word> words = dao.getValidWords();
         Random random = new Random();
         return words.get(random.nextInt(words.size()));
-/*
-        for (Word word : words) {
-
-        }
-
-
-
-
-        long amountOfWords = dao.countValidWords();
-        if (amountOfWords == 0) {
-            System.out.println("No words were found. Try added words to the database.");
-            return null;
-        }
-
-        long randomId = new Random().nextInt(Math.toIntExact(amountOfWords + 1));
-        Word word = dao.findById(randomId);
-
-        wordCount += word.getText().length();
-
-        return word;
-
- */
     }
 }

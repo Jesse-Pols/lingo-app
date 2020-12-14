@@ -5,6 +5,7 @@ import com.hu.lingoapp.game.domain.models.Letter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +21,16 @@ public class GuessService {
     public List<Letter> guess(String word) {
         // Verify the word
         // Check every letter in the word and the answer
+        Game game = gameService.game;
+        if (game == null) return null;
 
-        if (!this.verificationService.verify(word)) { return null; }
+        String answer = game.getAnswerString();
+        LocalDateTime dateTime = game.getLatestGuess();
+        if (answer == null || dateTime == null) return null;
+        if (!this.verificationService.verifyGuess(answer, dateTime)) return null;
 
-        String answer = gameService.getCurrentGameAnswer();
-        if (answer == null) return null;
-
-        if (word.equals(answer)) { gameService.win(); }
+        // If the time is correct, and the word is exactly equal to the answer, then the player has won.
+        if (word.equals(answer)) gameService.win();
         return this.checkLetters(word, answer);
     }
 

@@ -23,7 +23,7 @@ public class GameController {
     @GetMapping("/get/current")
     @ResponseBody
     public Game getCurrentGame() {
-        return gameService.getCurrentGame();
+        return gameService.game;
     }
 
     @PostMapping("/new")

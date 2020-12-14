@@ -1,7 +1,7 @@
 package com.hu.lingoapp.game.application.services;
 
+import com.hu.lingoapp.game.domain.models.Game;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -13,15 +13,10 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 class VerificationServiceTest {
-    @Mock
-    private GameService gameService;
-
-    @InjectMocks
-    @Resource
     private VerificationService service;
 
     @BeforeEach
@@ -31,14 +26,8 @@ class VerificationServiceTest {
 
     @ParameterizedTest
     @MethodSource("provideWordsAndDates")
-    void run_every_verification_succesfully_with_varied_data(String word, LocalDateTime dateTime, boolean shouldAccept) {
-        //TODO find other solution
-        MockitoAnnotations.initMocks(this);
-
-        when(gameService.getTimeOfLastGuess()).thenReturn(dateTime);
-        when(gameService.getStartTime()).thenReturn(LocalDateTime.now());
-
-        boolean accepts = service.verify(word);
+    void run_verifications_with_different_data(String word, LocalDateTime dateTime, boolean shouldAccept) {
+        boolean accepts = service.verifyGuess(word, dateTime);
         assertEquals(shouldAccept, accepts);
     }
 
@@ -72,7 +61,7 @@ class VerificationServiceTest {
                 Arguments.of("developer", LocalDateTime.now().minusSeconds(9), false),
                 Arguments.of("gezin", LocalDateTime.now().minusSeconds(9), true),
                 Arguments.of("bruv", null, false),
-                Arguments.of("broer", null, true),
+                Arguments.of("broer", null, false),
                 Arguments.of(null, null, false),
                 Arguments.of(null, LocalDateTime.now(), false)
         );

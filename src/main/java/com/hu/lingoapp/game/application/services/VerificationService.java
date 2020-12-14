@@ -1,6 +1,5 @@
 package com.hu.lingoapp.game.application.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -8,22 +7,18 @@ import java.time.LocalDateTime;
 @Service
 public class VerificationService {
 
-    @Autowired
-    private GameService gameService;
-
-    public boolean verify(String word) {
-        LocalDateTime localDateTime = gameService.getTimeOfLastGuess();
-        if (localDateTime == null) { localDateTime = gameService.getStartTime(); }
-        if (localDateTime == null) { return false; }
-        if (word == null) { return false; }
-        return this.verifyRegex(word);
+    public boolean verifyGuess(String answer, LocalDateTime lastGuess) {
+        if (!this.verifyRegex(answer)) return false;
+        return this.verifyTimer(lastGuess);
     }
 
     public boolean verifyRegex(String word) {
+        if (word == null) return false;
         return word.matches("^[a-z]{5,7}$");
     }
 
     public boolean verifyTimer(LocalDateTime dateTime) {
+        if (dateTime == null) return false;
         return !dateTime.isBefore(LocalDateTime.now().minusSeconds(10));
     }
 

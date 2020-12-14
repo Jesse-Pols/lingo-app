@@ -1,6 +1,7 @@
 package com.hu.lingoapp.game.application.services;
 
 import com.hu.lingoapp.game.domain.models.Letter;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -41,7 +43,7 @@ class GuessServiceTest {
         //TODO find other solution
         MockitoAnnotations.initMocks(this);
         when(gameService.getCurrentGameAnswer()).thenReturn(answer);
-        when(verificationService.verify(word)).thenReturn(true);
+        when(verificationService.verifyGuess(word, LocalDateTime.now())).thenReturn(true);
 
         List<Letter> accepts = service.guess(word);
         assertEquals(shouldAccept, accepts);
@@ -62,16 +64,8 @@ class GuessServiceTest {
         assertEquals(shouldAccept, accepts);
     }
 
-    static Stream<Arguments> provideVariousWords() {
-
-        List<Letter> list1 = new ArrayList<>();
-
-        return Stream.of(
-                Arguments.of("pizza", list1)
-        );
-    }
-
     static Stream<Arguments> provideVariousWordsAndAnswers() {
+
 
         List<Letter> list1 = new ArrayList<>();
         list1.add(new Letter(0, "p", true, true));

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -23,13 +22,33 @@ public class GameService {
     @Autowired
     private WordService wordService;
 
-    private Game game;
+    // Game contains the answer, the score, the current turn, and which player is playing
+    public Game game;
+
+    public boolean newGame() {
+        Game game = new Game();
+        Player player = playerService.save(new Player());
+        if (player == null) return false;
+
+        Word answer = wordService.chooseRandomWord();
+        if (answer == null) return false;
+
+        game.setTimeStarted(LocalDateTime.now());
+        this.game = gameDao.save(game);
+        return (this.game != null);
+    }
+
+
+
+
+
+
 
     public List<Game> getAllGames() {
         return gameDao.findAll();
     }
 
-    public boolean newGame() {
+    public boolean neweGame() {
         game = new Game();
 
         Player player = playerService.save(new Player());
@@ -43,20 +62,6 @@ public class GameService {
 
         game = gameDao.save(game);
         return true;
-    }
-
-    public Game getCurrentGame() {
-        return this.game;
-    }
-
-    public LocalDateTime getTimeOfLastGuess() {
-        if (game == null) return null;
-        return game.getTimeLastGuess();
-    }
-
-    public LocalDateTime getStartTime() {
-        if (game == null) return null;
-        return game.getTimeStarted();
     }
 
     public boolean setTimeOfLastGuess(LocalDateTime time) {
@@ -83,7 +88,17 @@ public class GameService {
         System.out.println("You Won!");
 
         game.setTimeEnded(LocalDateTime.now());
+        gameDao.save(game);
 
+        return true;
+    }
+
+    public boolean setPlayerName(String name) {
+        Player player = game.getPlayer();
+        if (player == null) return false;
+
+        player.setName(name);
+        playerService.save(player);
         return true;
     }
 }
