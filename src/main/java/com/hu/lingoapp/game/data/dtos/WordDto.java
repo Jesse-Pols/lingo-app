@@ -15,6 +15,7 @@ class WordDto {
     private long id;
 
     private String text;
+    private String bundle;
 
     public WordDto() {}
 }

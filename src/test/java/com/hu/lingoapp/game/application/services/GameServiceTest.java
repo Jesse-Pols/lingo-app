@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 class GameServiceTest {
+
     @Mock
     private PlayerService playerService;
 
@@ -49,12 +50,6 @@ class GameServiceTest {
 
         boolean accepts = service.newGame();
         assertTrue(accepts);
-    }
-
-    @Test
-    void check_that_game_exists() {
-        Game game = service.game;
-        assertNotNull(game);
     }
 
     @Test

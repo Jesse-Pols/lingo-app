@@ -14,15 +14,10 @@ public class GameController {
     @Autowired
     private GameService gameService;
 
-    @GetMapping("/get/all")
-    @ResponseBody
-    public List<Game> getAllGames() {
-        return gameService.getAllGames();
-    }
-
     @GetMapping("/get/current")
     @ResponseBody
     public Game getCurrentGame() {
+        if (gameService.game == null) return null;
         return gameService.game;
     }
 

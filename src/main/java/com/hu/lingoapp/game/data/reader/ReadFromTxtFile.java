@@ -13,11 +13,12 @@ import java.util.Scanner;
 public class ReadFromTxtFile implements TxtReader {
 
     @Override
-    public List<String> read(String fileName) throws FileNotFoundException {
+    public List<String> read(String fileName, boolean minimized) throws FileNotFoundException {
         List<String> words = new ArrayList<>();
-        String basePath = "wordlists/";
+        String basePath = "wordlist/";
+        if (minimized) basePath += "minimized-words/";
 
-        File file = ResourceUtils.getFile("classpath:" + basePath + fileName);
+        File file = new File(basePath + fileName);
         Scanner scanner = new Scanner(file);
         while(scanner.hasNext()) {
             words.add(scanner.next());

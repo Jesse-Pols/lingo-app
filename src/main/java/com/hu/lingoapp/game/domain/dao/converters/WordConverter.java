@@ -13,6 +13,7 @@ public class WordConverter {
         Word model = new Word();
         model.setId(entity.getId());
         model.setText(entity.getText());
+        model.setBundle(entity.getBundle());
 
         return model;
     }
@@ -30,6 +31,7 @@ public class WordConverter {
         WordDto entity = new WordDto();
         entity.setId(model.getId());
         entity.setText(model.getText());
+        entity.setBundle(model.getBundle());
 
         return entity;
     }

@@ -20,11 +20,15 @@ public class WordController {
 
     @GetMapping("/save/file")
     @ResponseBody
-    public boolean saveFile(@RequestParam String path) {
-        return wordService.saveFromTxtFile(path);
+    public boolean saveFile(@RequestParam String path, @RequestParam boolean minimized) {
+        return wordService.saveFromTxtFile(path, minimized);
     }
 
     @GetMapping("/get/random")
     @ResponseBody
     public Word getRandomWords() { return wordService.chooseRandomWord(); }
+
+    @GetMapping("/delete/invalid")
+    @ResponseBody
+    public boolean deleteInvalidWords(@RequestParam String path) { return wordService.deleteInvalidWords(path); }
 }

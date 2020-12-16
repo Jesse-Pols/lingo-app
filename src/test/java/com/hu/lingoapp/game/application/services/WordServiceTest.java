@@ -59,8 +59,8 @@ class WordServiceTest {
     @ParameterizedTest
     @MethodSource("provideListsWithDifferentValues")
     void read_words_from_txt_file(List<String> list) {
-        when(reader.readWordsFromTxtFile("filename")).thenReturn(list);
-        List<String> words = service.readFromTxtFile("filename");
+        when(reader.readWordsFromTxtFile("filename", false)).thenReturn(list);
+        List<String> words = service.readFromTxtFile("filename", false);
         assertEquals(words,list);
     }
 
@@ -74,7 +74,7 @@ class WordServiceTest {
     @Test
     void save_words_from_txt_file() {
         when(dao.save(new Word(anyString()))).thenReturn(new Word("woord"));
-        boolean accepts = service.saveFromTxtFile("filepath");
+        boolean accepts = service.saveFromTxtFile("filepath", false);
         assertTrue(accepts);
     }
 
@@ -82,7 +82,7 @@ class WordServiceTest {
     @MethodSource("provideListsWithDifferentValues")
     void save_list_of_strings_to_db(List<String> list, boolean shouldAccept) {
         when(dao.save(new Word(anyString()))).thenReturn(new Word("woord"));
-        boolean accepts = service.saveStringList(list);
+        boolean accepts = service.saveStringList(list, "bundleName");
         assertEquals(accepts, shouldAccept);
     }
 

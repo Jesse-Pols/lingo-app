@@ -5,11 +5,16 @@ import lombok.Data;
 public @Data class Word {
     private long id;
     private String text;
-    private String language;
+    private String bundle;
 
     public Word() {}
 
     public Word(String text) {
         this.text = text;
+    }
+
+    public Word(String text, String bundle) {
+        this.text = text;
+        this.bundle = bundle;
     }
 }

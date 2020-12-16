@@ -38,35 +38,10 @@ public class GameService {
         return (this.game != null);
     }
 
-
-
-
-
-
-
-    public List<Game> getAllGames() {
-        return gameDao.findAll();
-    }
-
-    public boolean neweGame() {
-        game = new Game();
-
-        Player player = playerService.save(new Player());
-        if (player != null) { game.setPlayer(player); }
-
-        Word answer = wordService.chooseRandomWord();
-        if (answer != null) { game.setAnswer(answer); }
-
-        game.setTimeStarted(LocalDateTime.now());
-        game.setTimeLastGuess(LocalDateTime.now());
-
-        game = gameDao.save(game);
-        return true;
-    }
-
     public boolean setTimeOfLastGuess(LocalDateTime time) {
         if (game == null) return false;
         game.setTimeLastGuess(time);
+
         gameDao.save(game);
         return true;
     }

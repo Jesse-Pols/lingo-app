@@ -13,9 +13,10 @@ public class ReaderService implements Reader {
     @Autowired
     private TxtReader txtReader;
 
-    public List<String> readWordsFromTxtFile(String fileName) {
+    @Override
+    public List<String> readWordsFromTxtFile(String fileName, boolean minimized) {
         try {
-            return txtReader.read(fileName);
+            return txtReader.read(fileName, minimized);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
