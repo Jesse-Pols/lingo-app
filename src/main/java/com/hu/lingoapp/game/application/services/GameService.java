@@ -29,9 +29,11 @@ public class GameService {
         Game game = new Game();
         Player player = playerService.save(new Player());
         if (player == null) return false;
+        game.setPlayer(player);
 
         Word answer = wordService.chooseRandomWord();
         if (answer == null) return false;
+        game.setAnswer(answer);
 
         game.setTimeStarted(LocalDateTime.now());
         this.game = gameDao.save(game);
