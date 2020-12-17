@@ -5,8 +5,6 @@ import com.hu.lingoapp.game.domain.models.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("game")
 public class GameController {
@@ -17,7 +15,11 @@ public class GameController {
     @GetMapping("/get/current")
     @ResponseBody
     public Game getCurrentGame() {
-        if (gameService.game == null) return null;
+        if (gameService.game == null) try {
+            throw new Exception("No game was found. Please try creating a new game first.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return gameService.game;
     }
 

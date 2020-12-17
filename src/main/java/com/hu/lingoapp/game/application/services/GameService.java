@@ -48,14 +48,12 @@ public class GameService {
         return true;
     }
 
-    public String getCurrentGameAnswer() {
-        if (game == null) return null;
+    public String getCurrentGameAnswer() throws Exception {
+        if (game == null) throw new Exception("Game couldn't be found. Please try creating a new game first.");
         Word answerObj = game.getAnswer();
 
-        if (answerObj == null) return null;
-        String answer = answerObj.getText();
-
-        return answer;
+        if (answerObj == null) throw new Exception("Something went wrong, the game doesn't have an answer.");
+        return answerObj.getText();
     }
 
     public boolean win() {

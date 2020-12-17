@@ -45,7 +45,12 @@ class GuessServiceTest {
         when(gameService.getCurrentGameAnswer()).thenReturn(answer);
         when(verificationService.verifyGuess(word, LocalDateTime.now())).thenReturn(true);
 
-        List<Letter> accepts = service.guess(word);
+        List<Letter> accepts = null;
+        try {
+            accepts = service.guess(word);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         assertEquals(shouldAccept, accepts);
     }
 

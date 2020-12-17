@@ -18,16 +18,16 @@ public class GuessService {
     @Autowired
     private VerificationService verificationService;
 
-    public List<Letter> guess(String word) {
+    public List<Letter> guess(String word) throws Exception {
         // Verify the word
         // Check every letter in the word and the answer
         Game game = gameService.game;
-        if (game == null) return null;
+        if (game == null) throw new Exception("No game was found. Please start by creating a new game.");
 
         String answer = game.getAnswerString();
         LocalDateTime dateTime = game.getLatestGuess();
-        if (answer == null || dateTime == null) return null;
-        if (!this.verificationService.verifyGuess(answer, dateTime)) return null;
+        if (answer == null || dateTime == null) throw new Exception("The current game does not contain an answer and/or a start-time");
+        if (!this.verificationService.verifyGuess(answer, dateTime)) throw new Exception("The guessed word could not be verified.");
 
         // If the time is correct, and the word is exactly equal to the answer, then the player has won.
         if (word.equals(answer)) gameService.win();
@@ -50,6 +50,7 @@ public class GuessService {
         if (word == null || answer == null || i < 0) return null;
         Letter letter = new Letter(i, null, false, false);
 
+        // Get the exact letter from the word
         char w;
         try {
             w = word.charAt(i);
@@ -59,9 +60,11 @@ public class GuessService {
             return letter;
         }
 
+        // Check if the letter is present in the answer
         if (answer.contains(letter.getLetter())) { letter.setPresent(true); }
         else { return letter; }
 
+        // Check if the letter's location is exactly right in the answer
         char a;
         try {
             a = answer.charAt(i);
