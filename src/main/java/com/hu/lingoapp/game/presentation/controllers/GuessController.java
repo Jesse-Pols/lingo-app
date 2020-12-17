@@ -16,6 +16,8 @@ public class GuessController {
     @PostMapping
     @ResponseBody
     public List<Letter> guess(@RequestParam String word) {
+        List<Letter> list = guessService.guess(word);
+        if (list == null) throw new NullPointerException("The word could not be guessed, something went wrong.");
         return guessService.guess(word);
     }
 }
