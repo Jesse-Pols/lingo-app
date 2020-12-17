@@ -74,10 +74,9 @@ public class WordService {
         return words.get(random.nextInt(words.size()));
     }
 
-    // These wordlists can sometimes be very very large, and because we don't want to reach any limits in our database, we delete the files that wouldn't be used anyway.
-    // Normally words with numbers would be allowed, but for now we remove them as well.
-    // Lastly we remove any locations and cities, by filtering the words that contains capital letters.
-    // Using the standard basiswoorden-gekeurd this will net us 9417 words, 583 words below the standard rowlimit in Heroku.
+    // Heroku databases have a rowlimit of 10.000
+    // These wordlists can sometimes be very very large, so for the sake of 'not-having-to-upgrade-heroku' we delete some of the lines, that wouldn't be used anyway.
+    // We remove the lines that are either too short or too long, we remove any lines that contain numbers and we remove cities (the lines with capital letters in them)
     public boolean deleteInvalidWords(String fileName) {
         List<String> lines = readFromTxtFile(fileName, false);
         List<String> validLines = new ArrayList<>();
