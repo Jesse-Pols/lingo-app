@@ -14,7 +14,6 @@ public class WordConverter {
         model.setId(entity.getId());
         model.setText(entity.getText());
         model.setBundle(entity.getBundle());
-
         return model;
     }
 
