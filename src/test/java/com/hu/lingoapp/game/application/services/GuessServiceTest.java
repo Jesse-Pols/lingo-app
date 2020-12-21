@@ -1,9 +1,10 @@
 package com.hu.lingoapp.game.application.services;
 
+import com.hu.lingoapp.game.domain.models.Game;
 import com.hu.lingoapp.game.domain.models.Letter;
-import org.junit.jupiter.api.BeforeAll;
+import com.hu.lingoapp.game.domain.models.Player;
+import com.hu.lingoapp.game.domain.models.Word;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -17,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 class GuessServiceTest {
 
@@ -28,36 +29,39 @@ class GuessServiceTest {
     @Mock
     private VerificationService verificationService;
 
+    @Mock
+    private TurnService turnService;
+
     @InjectMocks
     @Resource
-    private GuessService service;
+    private GuessService guessService;
 
     @BeforeEach
     void beforeEach() {
-        service = new GuessService();
+        guessService = new GuessService();
+        //TODO find other solution
+        MockitoAnnotations.initMocks(this);
     }
 
     @ParameterizedTest
     @MethodSource("provideVariousWordsAndAnswers")
-    void single_guess_where_word_should_be_checked(String word, String answer, List<Letter> shouldAccept) {
-        //TODO find other solution
-        MockitoAnnotations.initMocks(this);
-        when(gameService.getCurrentGameAnswer()).thenReturn(answer);
-        when(verificationService.verifyGuess(word, LocalDateTime.now())).thenReturn(true);
+    void single_guess_where_word_should_be_checked(String word, String answer, List<Letter> shouldAccept) throws Exception {
+        LocalDateTime dateTime = LocalDateTime.now();
+        gameService.game = new Game(1, new Player(), new Word(answer), dateTime);
 
-        List<Letter> accepts = null;
-        try {
-            accepts = service.guess(word);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        when(verificationService.verifyGuess(word, gameService.game.getTimeLastGuess())).thenReturn(true);
+        when(gameService.finishGame(true)).thenReturn(true);
+        when(gameService.finishGame(false)).thenReturn(true);
+        when(turnService.nextTurn()).thenReturn(true);
+
+        List<Letter> accepts = guessService.guess(word);
         assertEquals(shouldAccept, accepts);
     }
 
     @ParameterizedTest
     @MethodSource("provideVariousWordsAndAnswers")
     void check_all_letters_in_string(String word, String answer, List<Letter> shouldAccept) {
-        List<Letter> accepts = service.checkLetters(word, answer);
+        List<Letter> accepts = guessService.checkLetters(word, answer);
         assertEquals(shouldAccept, accepts);
     }
 
@@ -65,7 +69,7 @@ class GuessServiceTest {
     @ParameterizedTest
     @MethodSource("provideVariousWordsAnswersAndLetters")
     void checks_if_letter_is_correct_or_present_or_neither(String word, String answer, int i, Letter shouldAccept) {
-        Letter accepts = service.checkLetter(word, answer, i);
+        Letter accepts = guessService.checkLetter(word, answer, i);
         assertEquals(shouldAccept, accepts);
     }
 
@@ -78,10 +82,6 @@ class GuessServiceTest {
         list1.add(new Letter(2, "z", true, true));
         list1.add(new Letter(3, "z", true, true));
         list1.add(new Letter(4, "a", true, true));
-
-        List<Letter> list2 = new ArrayList<>();
-        list2.add(new Letter(0, "j", false, false));
-        list2.add(new Letter(1, "a", false, false));
 
         List<Letter> list3 = new ArrayList<>();
         list3.add(new Letter(0, "b", false, false));
@@ -101,7 +101,6 @@ class GuessServiceTest {
 
         return Stream.of(
                 Arguments.of("pizza", "pizza", list1),
-                Arguments.of("ja", "nee", list2),
                 Arguments.of("backend", "frontend", list3),
                 Arguments.of("jacht", "taboe", list4)
         );

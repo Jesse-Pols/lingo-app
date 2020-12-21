@@ -11,6 +11,7 @@ import java.util.List;
 public class PlayerConverter {
 
     public Player convertEntityToModel(PlayerDto entity) {
+        if (entity == null) return null;
         Player model = new Player();
         model.setId(entity.getId());
         model.setName(entity.getName());
@@ -20,6 +21,7 @@ public class PlayerConverter {
     }
 
     public List<Player> convertEntitiesToModels(List<PlayerDto> entities) {
+        if (entities == null) return null;
         List<Player> models = new ArrayList<>();
         for (PlayerDto entity : entities) {
             Player model = this.convertEntityToModel(entity);
@@ -29,6 +31,7 @@ public class PlayerConverter {
     }
 
     public PlayerDto convertModelToEntity(Player model) {
+        if (model == null) return null;
         PlayerDto entity = new PlayerDto();
         entity.setId(model.getId());
         entity.setName(model.getName());
@@ -38,6 +41,7 @@ public class PlayerConverter {
     }
 
     public List<PlayerDto> convertModelsToEntities(List<Player> models) {
+        if (models == null) return null;
         List<PlayerDto> entities = new ArrayList<>();
         for (Player model : models) {
             PlayerDto entity = this.convertModelToEntity(model);

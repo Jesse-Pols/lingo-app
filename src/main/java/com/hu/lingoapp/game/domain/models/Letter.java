@@ -15,11 +15,4 @@ class Letter {
         this.correct = correct;
         this.present = present;
     }
-
-    public Letter(int index, char letter, boolean correct, boolean present) {
-        this.index = index;
-        this.letter = String.valueOf(letter);
-        this.correct = correct;
-        this.present = present;
-    }
 }

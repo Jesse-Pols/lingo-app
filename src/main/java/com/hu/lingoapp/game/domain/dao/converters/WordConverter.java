@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class WordConverter {
     public Word convertEntityToModel(WordDto entity) {
+        if (entity == null) return null;
         Word model = new Word();
         model.setId(entity.getId());
         model.setText(entity.getText());
@@ -18,6 +19,7 @@ public class WordConverter {
     }
 
     public List<Word> convertEntitiesToModels(List<WordDto> entities) {
+        if (entities == null) return null;
         List<Word> models = new ArrayList<>();
         for (WordDto entity : entities) {
             Word model = this.convertEntityToModel(entity);
@@ -27,6 +29,7 @@ public class WordConverter {
     }
 
     public WordDto convertModelToEntity(Word model) {
+        if (model == null) return null;
         WordDto entity = new WordDto();
         entity.setId(model.getId());
         entity.setText(model.getText());
@@ -36,6 +39,7 @@ public class WordConverter {
     }
 
     public List<WordDto> convertModelsToEntities(List<Word> models) {
+        if (models == null) return null;
         List<WordDto> entities = new ArrayList<>();
         for (Word model : models) {
             WordDto entity = this.convertModelToEntity(model);

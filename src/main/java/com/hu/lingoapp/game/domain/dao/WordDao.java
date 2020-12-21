@@ -9,5 +9,9 @@ public interface WordDao {
     long count();
     long countValidWords();
     Word findById(Long id);
+
     List<Word> getValidWords();
+    List<Word> getValidWordsOf5Letters();
+    List<Word> getValidWordsOf6Letters();
+    List<Word> getValidWordsOf7Letters();
 }

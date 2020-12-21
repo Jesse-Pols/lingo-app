@@ -38,4 +38,19 @@ public class WordDataService implements WordData {
     public List<WordDto> getValidWords() {
         return repository.getValidWords();
     }
+
+    @Override
+    public List<WordDto> getValidWordsOf5Letters() {
+        return repository.getValidWordsOf5Letters();
+    }
+
+    @Override
+    public List<WordDto> getValidWordsOf6Letters() {
+        return repository.getValidWordsOf6Letters();
+    }
+
+    @Override
+    public List<WordDto> getValidWordsOf7Letters() {
+        return repository.getValidWordsOf7Letters();
+    }
 }

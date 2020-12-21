@@ -10,5 +10,9 @@ public interface WordData {
     long count();
     Optional<WordDto> findById(long id);
     long countValidWords();
+
     List<WordDto> getValidWords();
+    List<WordDto> getValidWordsOf5Letters();
+    List<WordDto> getValidWordsOf6Letters();
+    List<WordDto> getValidWordsOf7Letters();
 }

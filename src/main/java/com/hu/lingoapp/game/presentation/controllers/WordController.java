@@ -11,14 +11,13 @@ public class WordController {
     @Autowired
     private WordService wordService;
 
-    // TODO save function with an {text} parameter
-    @GetMapping("/save")
+    @PostMapping("/save")
     @ResponseBody
     public boolean save(@RequestParam String word) {
         return wordService.save(new Word(word));
     }
 
-    @GetMapping("/save/file")
+    @PostMapping("/save/file")
     @ResponseBody
     public boolean saveFile(@RequestParam String path, @RequestParam boolean minimized) {
         return wordService.saveFromTxtFile(path, minimized);
@@ -26,9 +25,9 @@ public class WordController {
 
     @GetMapping("/get/random")
     @ResponseBody
-    public Word getRandomWords() { return wordService.chooseRandomWord(); }
+    public Word getRandomWords() { return wordService.chooseRandomWord(5); }
 
-    @GetMapping("/delete/invalid")
+    @DeleteMapping("/delete/invalid")
     @ResponseBody
     public boolean deleteInvalidWords(@RequestParam String path) { return wordService.deleteInvalidWords(path); }
 }

@@ -49,4 +49,22 @@ public class WordDaoService implements WordDao {
         return converter.convertEntitiesToModels(words);
     }
 
+    @Override
+    public List<Word> getValidWordsOf5Letters() {
+        List<WordDto> words = data.getValidWordsOf5Letters();
+        return converter.convertEntitiesToModels(words);
+    }
+
+    @Override
+    public List<Word> getValidWordsOf6Letters() {
+        List<WordDto> words = data.getValidWordsOf6Letters();
+        return converter.convertEntitiesToModels(words);
+    }
+
+    @Override
+    public List<Word> getValidWordsOf7Letters() {
+        List<WordDto> words = data.getValidWordsOf7Letters();
+        return converter.convertEntitiesToModels(words);
+    }
+
 }

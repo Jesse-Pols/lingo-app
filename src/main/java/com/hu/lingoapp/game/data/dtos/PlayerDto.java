@@ -3,7 +3,6 @@ package com.hu.lingoapp.game.data.dtos;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "players")
@@ -17,4 +16,14 @@ class PlayerDto {
     private int score;
 
     public PlayerDto() {}
+
+    public PlayerDto(long id, String name, int score) {
+        this.id = id;
+        this.name = name;
+        this.score = score;
+    }
+
+    public PlayerDto(long id) {
+        this.id = id;
+    }
 }

@@ -25,10 +25,14 @@ public class WordService {
     @Autowired
     private Reader reader;
 
+    @Autowired
+    private VerificationService verificationService;
+
     public List<String> readFromTxtFile(String fileName, boolean minimized) {
         return reader.readWordsFromTxtFile(fileName, minimized);
     }
 
+    // Only unique words can be saved. Otherwise it just throws an exception.
     public boolean save(Word word) {
         // We don't need the word id, instead we return True if the save was a success.
         try {
@@ -68,27 +72,26 @@ public class WordService {
     }
 
     // Use the amount of words to choose a random wordId, then get that word from the db
-    public Word chooseRandomWord() {
-        List<Word> words = dao.getValidWords();
+    public Word chooseRandomWord(int answerLength) {
+        List<Word> words = null;
+        if (answerLength == 5) words = dao.getValidWordsOf5Letters();
+        if (answerLength == 6) words = dao.getValidWordsOf6Letters();
+        if (answerLength == 7) words = dao.getValidWordsOf7Letters();
+        if (words == null) dao.getValidWords();
+        
         Random random = new Random();
         return words.get(random.nextInt(words.size()));
     }
 
     // Heroku databases have a rowlimit of 10.000
     // These wordlists can sometimes be very very large, so for the sake of 'not-having-to-upgrade-heroku' we delete some of the lines, that wouldn't be used anyway.
-    // We remove the lines that are either too short or too long, we remove any lines that contain numbers and we remove cities (the lines with capital letters in them)
+    // We remove any line that can't be verified by our own verificationservice
     public boolean deleteInvalidWords(String fileName) {
         List<String> lines = readFromTxtFile(fileName, false);
         List<String> validLines = new ArrayList<>();
 
         for (String line : lines) {
-            if (line.length() > 4 && line.length() < 8) {
-                if (!line.matches(".*\\d.*")) {
-                    if (line.equals(line.toLowerCase())) {
-                        validLines.add(line);
-                    }
-                }
-            }
+            if (verificationService.verifyRegex(line)) validLines.add(line);
         }
 
         try {

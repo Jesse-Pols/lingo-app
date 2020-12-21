@@ -11,4 +11,7 @@ import java.util.Optional;
 public interface WordRepository extends CrudRepository<WordDto, Long> {
     long countValidWords();
     List<WordDto> getValidWords();
+    List<WordDto> getValidWordsOf5Letters();
+    List<WordDto> getValidWordsOf6Letters();
+    List<WordDto> getValidWordsOf7Letters();
 }

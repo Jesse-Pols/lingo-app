@@ -2,8 +2,10 @@ package com.hu.lingoapp.game.domain.dao.converters;
 
 import com.hu.lingoapp.game.data.dtos.GameDto;
 import com.hu.lingoapp.game.data.dtos.PlayerDto;
+import com.hu.lingoapp.game.data.dtos.WordDto;
 import com.hu.lingoapp.game.domain.models.Game;
 import com.hu.lingoapp.game.domain.models.Player;
+import com.hu.lingoapp.game.domain.models.Word;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,6 +18,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerConverterTest {
+
     private PlayerConverter converter;
 
     @BeforeEach
@@ -53,50 +56,49 @@ class PlayerConverterTest {
 
     static Stream<Arguments> providePlayerEntitiesWithDifferentData() {
         return Stream.of(
-                Arguments.of(new PlayerDto(), new Player())
+                Arguments.of(new PlayerDto(), new Player()),
+                Arguments.of(new PlayerDto(1, "Henk", 0), new Player(1, "Henk", 0)),
+                Arguments.of(null, null),
+                Arguments.of(new PlayerDto(0, "", 0), new Player(0, "", 0))
         );
     }
 
     static Stream<Arguments> providePlayerEntityListsWithDifferentData() {
-        List<GameDto> list1 = new ArrayList<>();
-        list1.add(new GameDto(1l));
-        list1.add(new GameDto(999999l));
-        list1.add(new GameDto(0l));
-        List<Game> list2 = new ArrayList<>();
-        list2.add(new Game(1l));
-        list2.add(new Game(999999l));
-        list2.add(new Game(0l));
+        List<PlayerDto> list1 = new ArrayList<>();
+        list1.add(new PlayerDto(1, "Henk", 0));
+        list1.add(null);
+        List<Player> list2 = new ArrayList<>();
+        list2.add(new Player(1, "Henk", 0));
+        list2.add(null);
 
         return Stream.of(
                 Arguments.of(new ArrayList<>(), new ArrayList<>()),
-                Arguments.of(list1, list2)
+                Arguments.of(list1, list2),
+                Arguments.of(null, null)
         );
     }
 
     static Stream<Arguments> providePlayersWithDifferentData() {
         return Stream.of(
-                Arguments.of(new Game(1l), new GameDto(1l)),
-                Arguments.of(new Game(0l), new GameDto(0l)),
-                Arguments.of(new Game(99999999999999l), new GameDto(99999999999999l)),
-                Arguments.of(new Game(-1l), new GameDto(-1l)),
-                Arguments.of(new Game(), new GameDto())
-
+                Arguments.of(new Player(), new PlayerDto()),
+                Arguments.of(new Player(1, "Henk", 0), new PlayerDto(1, "Henk", 0)),
+                Arguments.of(null, null),
+                Arguments.of(new Player(0, "", 0), new PlayerDto(0, "", 0))
         );
     }
 
     static Stream<Arguments> providePlayerListsWithDifferentData() {
-        List<Game> list1 = new ArrayList<>();
-        list1.add(new Game(1l));
-        list1.add(new Game(999999l));
-        list1.add(new Game(0l));
-        List<GameDto> list2 = new ArrayList<>();
-        list2.add(new GameDto(1l));
-        list2.add(new GameDto(999999l));
-        list2.add(new GameDto(0l));
+        List<Player> list1 = new ArrayList<>();
+        list1.add(new Player(1, "Henk", 0));
+        list1.add(null);
+        List<PlayerDto> list2 = new ArrayList<>();
+        list2.add(new PlayerDto(1, "Henk", 0));
+        list2.add(null);
 
         return Stream.of(
                 Arguments.of(new ArrayList<>(), new ArrayList<>()),
-                Arguments.of(list1, list2)
+                Arguments.of(list1, list2),
+                Arguments.of(null, null)
         );
     }
 }

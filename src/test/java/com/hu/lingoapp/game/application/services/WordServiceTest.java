@@ -1,7 +1,6 @@
 package com.hu.lingoapp.game.application.services;
 
 import com.hu.lingoapp.game.domain.dao.WordDao;
-import com.hu.lingoapp.game.domain.models.Letter;
 import com.hu.lingoapp.game.domain.models.Word;
 import com.hu.lingoapp.game.domain.reader.Reader;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +18,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.when;
 
@@ -30,13 +30,16 @@ class WordServiceTest {
     @Mock
     private Reader reader;
 
+    @Mock
+    private VerificationService verificationService;
+
     @InjectMocks
     @Resource
-    private WordService service;
+    private WordService wordService;
 
     @BeforeEach
     void beforeEach() {
-        service = new WordService();
+        wordService = new WordService();
 
         //TODO find other solution
         MockitoAnnotations.initMocks(this);
@@ -51,8 +54,8 @@ class WordServiceTest {
         words1.add(new Word("vriend"));
         words1.add(new Word(""));
 
-        when(dao.getValidWords()).thenReturn(words1);
-        Word word = service.chooseRandomWord();
+        when(dao.getValidWordsOf5Letters()).thenReturn(words1);
+        Word word = wordService.chooseRandomWord(5);
         assertNotNull(word);
     }
 
@@ -60,21 +63,21 @@ class WordServiceTest {
     @MethodSource("provideListsWithDifferentValues")
     void read_words_from_txt_file(List<String> list) {
         when(reader.readWordsFromTxtFile("filename", false)).thenReturn(list);
-        List<String> words = service.readFromTxtFile("filename", false);
+        List<String> words = wordService.readFromTxtFile("filename", false);
         assertEquals(words,list);
     }
 
     @Test
     void save_words_to_db() {
         when(dao.save(new Word(anyString()))).thenReturn(new Word("woord"));
-        boolean accepts = service.save(new Word("woord"));
+        boolean accepts = wordService.save(new Word("woord"));
         assertTrue(accepts);
     }
 
     @Test
     void save_words_from_txt_file() {
         when(dao.save(new Word(anyString()))).thenReturn(new Word("woord"));
-        boolean accepts = service.saveFromTxtFile("filepath", false);
+        boolean accepts = wordService.saveFromTxtFile("filepath", false);
         assertTrue(accepts);
     }
 
@@ -82,8 +85,14 @@ class WordServiceTest {
     @MethodSource("provideListsWithDifferentValues")
     void save_list_of_strings_to_db(List<String> list, boolean shouldAccept) {
         when(dao.save(new Word(anyString()))).thenReturn(new Word("woord"));
-        boolean accepts = service.saveStringList(list, "bundleName");
+        boolean accepts = wordService.saveStringList(list, "bundleName");
         assertEquals(accepts, shouldAccept);
+    }
+
+    @Test
+    void delete_invalid_words_from_wordlist() {
+        when(verificationService.verifyRegex(any())).thenReturn(true);
+        assertTrue(wordService.deleteInvalidWords("file"));
     }
 
     static Stream<Arguments> provideListsWithDifferentValues() {

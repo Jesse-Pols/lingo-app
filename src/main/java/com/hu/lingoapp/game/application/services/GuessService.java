@@ -18,20 +18,27 @@ public class GuessService {
     @Autowired
     private VerificationService verificationService;
 
+    @Autowired
+    private TurnService turnService;
+
     public List<Letter> guess(String word) throws Exception {
-        // Verify the word
-        // Check every letter in the word and the answer
+        // Verify the guessed word, and perform null-checks
+        // Check if the player has won
+        // Add 1 to the current turn, or finish the game (if we are at the fifth turn)
+        // Return a list of letters, based on which letters in the guessed word were correct, absent or present
+
         Game game = gameService.game;
         if (game == null) throw new Exception("No game was found. Please start by creating a new game.");
+        if (game.getAnswerString() == null) throw new Exception("The current game does not contain an answer");
 
-        String answer = game.getAnswerString();
-        LocalDateTime dateTime = game.getLatestGuess();
-        if (answer == null || dateTime == null) throw new Exception("The current game does not contain an answer and/or a start-time");
-        if (!this.verificationService.verifyGuess(answer, dateTime)) throw new Exception("The guessed word could not be verified.");
+        boolean verified = verificationService.verifyGuess(word, game.getTimeLastGuess());
+        if (!verified) throw new Exception("The guessed word could not be verified.");
 
-        // If the time is correct, and the word is exactly equal to the answer, then the player has won.
-        if (word.equals(answer)) gameService.win();
-        return this.checkLetters(word, answer);
+        if (game.getAnswerString().equals(word)) gameService.finishGame(true);
+        if (game.getTurn() >= 5) gameService.finishGame(false);
+
+        turnService.nextTurn();
+        return this.checkLetters(word, game.getAnswerString());
     }
 
     public List<Letter> checkLetters(String word, String answer) {
