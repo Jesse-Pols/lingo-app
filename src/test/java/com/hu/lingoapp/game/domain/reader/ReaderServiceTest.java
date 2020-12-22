@@ -1,7 +1,6 @@
 package com.hu.lingoapp.game.domain.reader;
 
 import com.hu.lingoapp.game.data.reader.TxtReader;
-import com.hu.lingoapp.game.domain.dao.services.WordDaoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -9,12 +8,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import javax.annotation.Resource;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 class ReaderServiceTest {

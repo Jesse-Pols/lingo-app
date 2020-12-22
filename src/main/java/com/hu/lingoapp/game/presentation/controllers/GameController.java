@@ -28,8 +28,8 @@ public class GameController {
 
     @PostMapping("/new")
     @ResponseBody
-    public boolean newGame() {
-        return gameService.newGame(5);
+    public boolean newGame(@RequestParam int answerLength) {
+        return gameService.newGame(answerLength);
     }
 
 }

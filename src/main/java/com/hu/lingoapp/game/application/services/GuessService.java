@@ -31,13 +31,18 @@ public class GuessService {
         if (game == null) throw new Exception("No game was found. Please start by creating a new game.");
         if (game.getAnswerString() == null) throw new Exception("The current game does not contain an answer");
 
-        boolean verified = verificationService.verifyGuess(word, game.getTimeLastGuess());
+        boolean verified = verificationService.verifyGuess(word, game.getLatestGuess()  );
         if (!verified) throw new Exception("The guessed word could not be verified.");
 
-        if (game.getAnswerString().equals(word)) gameService.finishGame(true);
-        if (game.getTurn() >= 5) gameService.finishGame(false);
-
-        turnService.nextTurn();
+        if (game.getAnswerString().equals(word)) {
+            gameService.nextGame(true);
+        }
+        if (game.getTurn() >= 5) {
+            gameService.nextGame(false);
+        }
+        if (game.getTurn() < 5 && !game.getAnswerString().equals(word)) {
+            turnService.nextTurn();
+        }
         return this.checkLetters(word, game.getAnswerString());
     }
 

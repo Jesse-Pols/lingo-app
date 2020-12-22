@@ -75,7 +75,7 @@ public class GameService {
 
     public boolean nextGame(boolean gameWon) throws Exception {
         finishGame(gameWon);
-        return newGame(5);
+        return newGame(game.getAnswer().getText().length());
     }
 
     // If the player has been altered, than that must be saved locally as well as in the db

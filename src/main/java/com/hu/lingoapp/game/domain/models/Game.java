@@ -10,6 +10,9 @@ public @Data class Game {
     private Word answer;
     private int turn;
 
+    private boolean finished;
+    private boolean won;
+
     private LocalDateTime timeStarted;
     private LocalDateTime timeEnded;
     private LocalDateTime timeLastGuess;

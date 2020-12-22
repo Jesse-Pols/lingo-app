@@ -12,8 +12,8 @@ public class VerificationService {
     // Words have to be lowercase
     // The last guess cant be longer than 10 seconds ago
 
-    public boolean verifyGuess(String answer, LocalDateTime lastGuess) {
-        if (!this.verifyRegex(answer)) return false;
+    public boolean verifyGuess(String word, LocalDateTime lastGuess) {
+        if (!this.verifyRegex(word)) return false;
         return this.verifyTimer(lastGuess);
     }
 
