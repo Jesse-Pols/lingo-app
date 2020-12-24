@@ -12,6 +12,8 @@ import java.util.Scanner;
 @Service
 public class ReadFromTxtFile implements TxtReader {
 
+    // We get and save our wordlists to the src/wordlists folder, instead of the resources folder
+    // This is because it's much easier to edit and save the lists this way
     @Override
     public List<String> read(String fileName, boolean minimized) throws FileNotFoundException {
         List<String> words = new ArrayList<>();

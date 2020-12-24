@@ -13,8 +13,12 @@ public class VerificationService {
     // The last guess cant be longer than 10 seconds ago
 
     public boolean verifyGuess(String answer, LocalDateTime lastGuess) {
-        if (!this.verifyRegex(answer)) return false;
-        return this.verifyTimer(lastGuess);
+        // TODO: Remove this
+        return true;
+
+        // TODO: Uncomment this
+        //if (!this.verifyRegex(answer)) return false;
+        //return this.verifyTimer(lastGuess);
     }
 
     public boolean verifyRegex(String word) {

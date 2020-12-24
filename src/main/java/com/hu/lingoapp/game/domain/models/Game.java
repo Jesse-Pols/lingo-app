@@ -3,6 +3,8 @@ package com.hu.lingoapp.game.domain.models;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public @Data class Game {
     private long id;
@@ -13,6 +15,8 @@ public @Data class Game {
     private LocalDateTime timeStarted;
     private LocalDateTime timeEnded;
     private LocalDateTime timeLastGuess;
+
+    private List<Letter> guessedLetters;
 
     public Game() {}
 
@@ -53,5 +57,17 @@ public @Data class Game {
         Word word = this.answer;
         if (word == null) return null;
         return word.getText();
+    }
+
+    public void combineLists(List<Letter> newGuessedLetters) {
+        List<Letter> updated = new ArrayList<>();
+
+        for (Letter newLetter: newGuessedLetters) {
+            for (Letter oldLetter: guessedLetters){
+                if (newLetter.isCorrect()) updated.add(newLetter);
+                if (oldLetter == null) updated.add(newLetter);
+            }
+        }
+        guessedLetters = updated;
     }
 }

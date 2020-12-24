@@ -16,7 +16,7 @@ import java.util.Random;
 @Service
 public class WordService {
 
-    // Words can be minimized
+    // Wordlist can be minimized
     // This is a temporary solution to any limits imposed by the used database
 
     @Autowired
@@ -45,7 +45,7 @@ public class WordService {
     }
 
     public boolean saveStringList(List<String> words, String bundle) {
-        if (words == null) { return false; }
+        if (words == null || bundle == null) { return false; }
         if (words.contains(null)) { return false; }
 
         for (String string : words) {

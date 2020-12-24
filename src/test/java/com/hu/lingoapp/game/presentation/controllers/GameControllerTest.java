@@ -50,7 +50,7 @@ class GameControllerTest {
     @Test
     void new_game() {
         when(gameService.newGame(5)).thenReturn(true);
-        assertTrue(gameController.newGame());
+        assertTrue(gameController.newGame(5));
     }
 
 
