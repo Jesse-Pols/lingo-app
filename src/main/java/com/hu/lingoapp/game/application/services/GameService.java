@@ -29,10 +29,13 @@ public class GameService {
     public Game game;
 
     public boolean newGame(int answerLength) {
+
         Game game = new Game();
-        Player player = playerService.save(new Player());
-        if (player == null) return false;
-        game.setPlayer(player);
+        if (this.game == null) {
+            Player player = playerService.save(new Player());
+            if (player == null) return false;
+            game.setPlayer(player);
+        }
 
         Word answer = wordService.chooseRandomWord(answerLength);
         if (answer == null) return false;
