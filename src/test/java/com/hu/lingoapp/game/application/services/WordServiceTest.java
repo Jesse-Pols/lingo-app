@@ -40,8 +40,6 @@ class WordServiceTest {
     @BeforeEach
     void beforeEach() {
         wordService = new WordService();
-
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 

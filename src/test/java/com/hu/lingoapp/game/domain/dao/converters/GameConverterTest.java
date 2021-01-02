@@ -38,7 +38,6 @@ class GameConverterTest {
     @BeforeEach
     void beforeEach() {
         gameConverter = new GameConverter();
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 

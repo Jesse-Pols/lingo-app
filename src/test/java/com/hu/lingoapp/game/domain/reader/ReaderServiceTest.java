@@ -27,7 +27,6 @@ class ReaderServiceTest {
     @BeforeEach
     void setUp() {
         readerService = new ReaderService();
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 

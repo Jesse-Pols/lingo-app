@@ -72,6 +72,14 @@
             <scope>test</scope>
         </dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20201115</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
@@ -79,16 +87,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-
-			<!-- // TODO Does this even work -->
-			<plugin>
-				<groupId>org.eluder.coveralls</groupId>
-				<artifactId>coveralls-maven-plugin</artifactId>
-				<version>4.3.0</version>
-				<configuration>
-					<repoToken>yourcoverallsprojectrepositorytoken</repoToken>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

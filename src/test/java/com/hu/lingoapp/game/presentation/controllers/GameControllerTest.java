@@ -29,7 +29,6 @@ class GameControllerTest {
     @BeforeEach
     void beforeEach() {
         gameController = new GameController();
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 

@@ -34,7 +34,6 @@ class GuessControllerTest {
     @BeforeEach
     void beforeEach() {
         this.guessController = new GuessController();
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 

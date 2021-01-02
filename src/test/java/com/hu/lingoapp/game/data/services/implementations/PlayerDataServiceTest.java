@@ -31,7 +31,6 @@ class PlayerDataServiceTest {
     @BeforeEach
     void setUp() {
         playerDataService = new PlayerDataService();
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 
@@ -56,6 +55,6 @@ class PlayerDataServiceTest {
         when(playerRepository.findById(1l)).thenReturn(Optional.of(new PlayerDto(1)));
         Optional<PlayerDto> playerDto = playerDataService.findById(1);
         assertNotNull(playerDto);
-        assertTrue(playerDto.get().getId() == 1);
+        assertEquals(playerDto.get().getId(), 1);
     }
 }

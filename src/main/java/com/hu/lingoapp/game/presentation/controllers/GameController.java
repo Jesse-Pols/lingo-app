@@ -1,7 +1,7 @@
 package com.hu.lingoapp.game.presentation.controllers;
 
 import com.hu.lingoapp.game.application.services.GameService;
-import com.hu.lingoapp.game.domain.models.Game;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +30,24 @@ public class GameController {
     @ResponseBody
     public boolean newGame(@RequestParam int answerLength) {
         return gameService.newGame(answerLength);
+    }
+
+    @GetMapping("/finished")
+    @ResponseBody
+    public String checkIfCurrentGameHasBeenFinished() {
+        assert gameService.game != null;
+
+        JSONObject json = new JSONObject();
+        json.put("finished", gameService.game.isFinished());
+        json.put("won", gameService.game.isWon());
+
+        return json.toString();
+    }
+
+    @PostMapping("/finish")
+    @ResponseBody
+    public boolean finishCurrentGame(@RequestParam String name) {
+        return gameService.finishGame(name);
     }
 
 }

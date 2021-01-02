@@ -25,7 +25,6 @@ class WordControllerTest {
     @BeforeEach
     void beforeEach() {
         this.wordController = new WordController();
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 

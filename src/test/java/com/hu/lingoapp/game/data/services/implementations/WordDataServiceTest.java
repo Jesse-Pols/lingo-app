@@ -31,7 +31,6 @@ class WordDataServiceTest {
     @BeforeEach
     void setUp() {
         wordDataService = new WordDataService();
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 

@@ -24,7 +24,6 @@ class TurnServiceTest {
     @BeforeEach
     void beforeEach() {
         this.gameService = new GameService();
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 

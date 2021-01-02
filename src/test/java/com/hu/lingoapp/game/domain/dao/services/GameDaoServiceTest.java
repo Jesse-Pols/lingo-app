@@ -35,7 +35,6 @@ class GameDaoServiceTest {
     @BeforeEach
     void setUp() {
         gameDaoService = new GameDaoService();
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 

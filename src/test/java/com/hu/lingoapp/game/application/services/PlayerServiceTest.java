@@ -26,7 +26,6 @@ class PlayerServiceTest {
     @BeforeEach
     void beforeEach() {
         service = new PlayerService();
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 

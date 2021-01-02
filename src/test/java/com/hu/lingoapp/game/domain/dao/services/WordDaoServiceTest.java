@@ -37,7 +37,6 @@ class WordDaoServiceTest {
     @BeforeEach
     void setUp() {
         wordDaoService = new WordDaoService();
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 

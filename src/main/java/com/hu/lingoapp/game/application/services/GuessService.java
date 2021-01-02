@@ -30,15 +30,21 @@ public class GuessService {
         Game game = gameService.game;
         if (game == null) throw new Exception("No game was found. Please start by creating a new game.");
         if (game.getAnswerString() == null) throw new Exception("The current game does not contain an answer");
+        if (game.isFinished()) throw new Exception("This game is finished. Please create a new game.");
 
-        boolean verified = verificationService.verifyGuess(word, game.getLatestGuess()  );
-        if (!verified) throw new Exception("The guessed word could not be verified.");
+        boolean verified = verificationService.verifyGuess(word, game.getLatestGuess());
+        if (!verified) {
+            turnService.nextTurn();
+            throw new Exception("The guessed word could not be verified.");
+        }
 
         if (game.getAnswerString().equals(word)) {
-            gameService.nextGame(true);
+            game.setWon(true);
+            game.setFinished(true);
         }
         if (game.getTurn() >= 5) {
-            gameService.nextGame(false);
+            game.setWon(false);
+            game.setFinished(true);
         }
         if (game.getTurn() < 5 && !game.getAnswerString().equals(word)) {
             turnService.nextTurn();

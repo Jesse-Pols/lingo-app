@@ -43,39 +43,26 @@ public class GameService {
         return (this.game != null);
     }
 
-    public boolean finishGame(boolean won) throws Exception {
-        if (game == null) throw new Exception("Game could not be found, try creating a new game.");
+    // Finishing touches to the last game, sets the end-time and the score
+    public boolean finishGame(String name) {
+        assert (game != null);
+        assert (game.getPlayer() != null);
 
         Player player = game.getPlayer();
-        if (player == null) throw new Exception("Game did not contain a player. Something must have gone wrong when creating a new game.");
-
+        player.setName(name);
         game.setTimeEnded(LocalDateTime.now());
 
-        if (won) {
-            player.setScore(player.getScore() + 1);
-            game.setPlayer(player);
-            this.setGame(game);
+        // Is the game really finished? If not we can assume that the game is lost.
+        if (!game.isFinished()) {
+            game.setFinished(true);
+            game.setWon(false);
         }
 
-        return true;
-    }
+        if (game.isWon()) player.setScore(player.getScore() + 1);
 
-    public boolean endGame(String name) throws Exception {
-        if (game == null) throw new Exception("Game could not be found, try creating a new game.");
-
-        Player player = game.getPlayer();
-        if (player == null) throw new Exception("Game did not contain a player. Something must have gone wrong when creating a new game.");
-
-        finishGame(false);
-        player.setName(name);
         game.setPlayer(player);
-
-        return setGame(game);
-    }
-
-    public boolean nextGame(boolean gameWon) throws Exception {
-        finishGame(gameWon);
-        return newGame(game.getAnswer().getText().length());
+        this.setGame(game);
+        return true;
     }
 
     // If the player has been altered, than that must be saved locally as well as in the db

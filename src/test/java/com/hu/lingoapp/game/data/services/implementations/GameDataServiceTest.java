@@ -29,7 +29,6 @@ class GameDataServiceTest {
     @BeforeEach
     void setUp() {
         gameDataService = new GameDataService();
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 

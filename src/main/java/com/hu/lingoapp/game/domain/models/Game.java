@@ -41,6 +41,12 @@ public @Data class Game {
         this.timeStarted = timeStarted;
     }
 
+    public Game(Player player, boolean finished, boolean won) {
+        this.player = player;
+        this.finished = finished;
+        this.won = won;
+    }
+
     public Game(LocalDateTime timeStarted, LocalDateTime timeLastGuess) {
         this.timeLastGuess = timeLastGuess;
         this.timeStarted = timeStarted;

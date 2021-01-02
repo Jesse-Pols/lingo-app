@@ -39,7 +39,6 @@ class GuessServiceTest {
     @BeforeEach
     void beforeEach() {
         guessService = new GuessService();
-        //TODO find other solution
         MockitoAnnotations.initMocks(this);
     }
 
@@ -50,8 +49,8 @@ class GuessServiceTest {
         gameService.game = new Game(1, new Player(), new Word(answer), dateTime);
 
         when(verificationService.verifyGuess(word, gameService.game.getTimeLastGuess())).thenReturn(true);
-        when(gameService.finishGame(true)).thenReturn(true);
-        when(gameService.finishGame(false)).thenReturn(true);
+        when(gameService.finishGame("name")).thenReturn(true);
+        when(gameService.finishGame("name")).thenReturn(true);
         when(turnService.nextTurn()).thenReturn(true);
 
         List<Letter> accepts = guessService.guess(word);
