@@ -30,6 +30,8 @@ public class GameService {
 
     public boolean newGame(int answerLength) {
 
+        if (answerLength <= 4 || answerLength >= 8) return false;
+
         Game game = new Game();
         if (this.game == null) {
             Player player = playerService.save(new Player());
