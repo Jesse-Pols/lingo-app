@@ -35,6 +35,8 @@ public class GameService {
             Player player = playerService.save(new Player());
             if (player == null) return false;
             game.setPlayer(player);
+        } else {
+            game.setPlayer(this.game.getPlayer());
         }
 
         Word answer = wordService.chooseRandomWord(answerLength);
