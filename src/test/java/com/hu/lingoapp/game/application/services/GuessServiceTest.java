@@ -48,7 +48,7 @@ class GuessServiceTest {
         LocalDateTime dateTime = LocalDateTime.now();
         gameService.game = new Game(1, new Player(), new Word(answer), dateTime);
 
-        when(verificationService.verifyGuess(word, gameService.game.getTimeLastGuess())).thenReturn(true);
+        when(verificationService.verifyGuess(word, gameService.game.getLatestGuess())).thenReturn(true);
         when(gameService.finishGame("name")).thenReturn(true);
         when(gameService.finishGame("name")).thenReturn(true);
         when(turnService.nextTurn()).thenReturn(true);
